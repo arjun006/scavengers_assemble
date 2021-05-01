@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -9,23 +9,24 @@ import {
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
+import { TextInput } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
-  const [hasPermission, setHasPermission] = useState(null);
+//   const [hasPermission, setHasPermission] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+//   useEffect(() => {
+//     (async () => {
+//     //   const { status } = await Camera.requestPermissionsAsync();
+//     //   setHasPermission(status === "granted");
+//     })();
+//   }, []);
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+//   if (hasPermission === null) {
+//     return <View />;
+//   }
+//   if (hasPermission === false) {
+//     return <Text>No access to camera</Text>;
+//   }
   return (
     <>
       <View
@@ -33,12 +34,32 @@ export default function HomeScreen() {
       ></View>
       <ImageBackground style={styles.background}>
         <View style={styles.logoContainer}>
-          <Image source={require("../assets/Title.png")} />
+          <Image source={require("../images/Title.png")} />
         </View>
-        <View>
-          <Button />
+        <View
+        style={styles.inputContainer}
+        >
+          <TextInput 
+            style={styles.textInput}
+            placeholder='     Display Name     '
+          />
+        </View>
+        <View
+        style={styles.inputContainer}
+        >
+          <TextInput 
+            style={styles.textInput}
+            placeholder='   Scavenger Code   '
+          />
         </View>
       </ImageBackground>
+      <View
+      style={styles.buttonContainer}
+      >
+          <Button
+            title="Enter Room"
+          />
+      </View>
     </>
   );
 }
@@ -51,6 +72,20 @@ const styles = StyleSheet.create({
   logoContainer: {
     padding: 10,
     justifyContent: "flex-start",
-    marginTop: "55%",
+    marginTop: "57%",
   },
+  inputContainer: {
+    backgroundColor: colours.white,
+    borderRadius: 35,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingHorizontal: 70,
+    marginTop: 20   
+  },
+  textInput: {
+      fontSize: 20
+  },
+  buttonContainer: {
+    justifyContent: "flex-start"
+  }
 });
