@@ -50,6 +50,8 @@ export default function App() {
         {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
         {/* <Stack.Screen name="Lobby" component={LobbyScreen} /> */}
         {/* <Stack.Screen name="Waiting" component={WaitingScreen} /> */}
+        {/* <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Lobby" component={LobbyScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

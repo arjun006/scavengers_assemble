@@ -7,12 +7,14 @@ import {
   Image,
   Button,
 } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
 //   const [hasPermission, setHasPermission] = useState(null);
 
 //   useEffect(() => {
@@ -63,7 +65,8 @@ export default function HomeScreen() {
         <Text style={styles.text}>Click to host a game.</Text>
         <TouchableOpacity
             activeOpacity={.9}
-            style={styles.hostButton}>
+            style={styles.hostButton}
+            onPress={()=> {navigation.navigate('LobbyScreen')}}>
             <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
      
