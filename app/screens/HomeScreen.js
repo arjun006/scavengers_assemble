@@ -13,33 +13,83 @@ import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { Camera } from "expo-camera";
+import * as firebase from "firebase";
 
 export default function HomeScreen({ navigation }) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [code, setCode] = useState(0);
 
   const onEnterPress = () => {
-    navigation.navigate("Waiting");
+    navigation.navigate('Waiting');
   };
   const onHostPress = () => {
-    navigation.navigate("Lobby");
+    // navigation.navigate('Lobby');
+    // var database = firebase.database();
+    // console.log('working');
+
+    generateLobby();
+    // database.ref('1234/score/').set({
+    //   name: 'BOB',
+    //   score: 10
+    // });
+
   };
-  const [hasPermission, setHasPermission] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+  const generateLobby = () => {
+    //Genere Random Lobby ID
+    let lobbyId = 0;
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+    //Check if it exists in DB
+    let isValid = false;
+    console.log(lobbyId);
+
+    //If exist => Regenerate
+    do {
+      lobbyId = Math.floor(Math.random() * 99999) + 10000;
+      isValid = lobbyIdValidation(lobbyId);
+    } while (!isValid);
+
+    console.log(lobbyId);
+    //Else => Push it to DB
+    const db = firebase.database();
+
+    db.ref(`${lobbyId}/`).set({
+      gameStarted: false,
+      score: [],
+      currentQuestion: 0,
+      Question: []
+    });
+  };
+
+  const lobbyIdValidation = (lobbyId) => {
+    const dbRef = firebase.database().ref();
+
+    dbRef.child(lobbyId).get().then((snapshot) => {
+      if (snapshot.exists()) {
+        return false;
+      } else {
+        return true;
+      }
+    }).catch((error) => {
+      return false;
+    });
+  };
+
+  //   const [hasPermission, setHasPermission] = useState(null);
+
+  //   useEffect(() => {
+  //     (async () => {
+  //     //   const { status } = await Camera.requestPermissionsAsync();
+  //     //   setHasPermission(status === "granted");
+  //     })();
+  //   }, []);
+
+  //   if (hasPermission === null) {
+  //     return <View />;
+  //   }
+  //   if (hasPermission === false) {
+  //     return <Text>No access to camera</Text>;
+  //   }
   return (
     <>
       <View
@@ -49,7 +99,9 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.logoContainer}>
           <Image source={require("../images/Title.png")} />
         </View>
-        <View style={styles.inputContainer}>
+        <View
+          style={styles.inputContainer}
+        >
           <TextInput
             style={styles.textInput}
             placeholder="     Display Name     "
@@ -58,7 +110,9 @@ export default function HomeScreen({ navigation }) {
             }}
           />
         </View>
-        <View style={styles.inputContainer}>
+        <View
+          style={styles.inputContainer}
+        >
           <TextInput
             style={styles.textInput}
             placeholder="   Scavenger Code   "
@@ -70,22 +124,22 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <TouchableOpacity
-          activeOpacity={0.9}
+          activeOpacity={.9}
           style={styles.roomButton}
-          onPress={() => onEnterPress()}
-        >
+          onPress={() => onEnterPress()}>
           <Text style={styles.buttonText}>Enter Room</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Click to host a game.</Text>
         <TouchableOpacity
-          activeOpacity={0.9}
+          activeOpacity={.9}
           style={styles.hostButton}
-          onPress={() => onHostPress()}
-        >
+          onPress={() => onHostPress()}>
           <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
+
       </ImageBackground>
+
     </>
   );
 }
@@ -105,10 +159,10 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 15,
     paddingHorizontal: 70,
-    marginTop: 20,
+    marginTop: 20
   },
   textInput: {
-    fontSize: 20,
+    fontSize: 20
   },
   roomButton: {
     backgroundColor: colours.black,
