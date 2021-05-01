@@ -19,5 +19,7 @@ export default function HomeScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  return <View></View>;
+  return (<View>
+    <Text>Home Screen</Text>
+  </View>);
 }
