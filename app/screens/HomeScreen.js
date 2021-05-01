@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, ImageBackground, Image, Button } from "react-native";
-import * as Permissions from "expo-permissions";
 import colours from '../config/colours';
 
 export default function HomeScreen() {
+    const [hasPermission, setHasPermission] = useState(null);
+    const [type, setType] = useState(Camera.Constants.Type.back);
     useEffect(() => {
         (async () => {
           const { status } = await Camera.requestPermissionsAsync();
