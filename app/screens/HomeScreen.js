@@ -7,12 +7,13 @@ import {
   Image,
   Button,
 } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import QuestionGenerator from './../QuestionGenerator/QuestionGenerator.js';
 import * as firebase from "firebase";
 
 export default function HomeScreen({ navigation }) {
@@ -37,27 +38,30 @@ export default function HomeScreen({ navigation }) {
 
   const generateLobby = () => {
     //Genere Random Lobby ID
-    let lobbyId = 0;
+    let lobbyId = Math.floor(Math.random() * 97999) + 10000;
 
     //Check if it exists in DB
     let isValid = false;
     console.log(lobbyId);
 
     //If exist => Regenerate
-    do {
-      lobbyId = Math.floor(Math.random() * 99999) + 10000;
-      isValid = lobbyIdValidation(lobbyId);
-    } while (!isValid);
+    // do {
+    //   lobbyId = Math.floor(Math.random() * 99999) + 10000;
+    //   isValid = lobbyIdValidation(lobbyId);
+    // } while (!isValid);
 
-    console.log(lobbyId);
+    const randomGeneratedQuestion = QuestionGenerator(5);
     //Else => Push it to DB
     const db = firebase.database();
 
     db.ref(`${lobbyId}/`).set({
       gameStarted: false,
-      score: [],
+      score: {
+
+      },
       currentQuestion: 0,
-      Question: []
+      totalQuestion: 5,
+      Question: randomGeneratedQuestion
     });
   };
 
@@ -90,6 +94,7 @@ export default function HomeScreen({ navigation }) {
   //   if (hasPermission === false) {
   //     return <Text>No access to camera</Text>;
   //   }
+
   return (
     <>
       <View
@@ -99,40 +104,43 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.logoContainer}>
           <Image source={require("../images/Title.png")} />
         </View>
-        <View
-          style={styles.inputContainer}
-        >
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder='     Display Name     '
+            placeholder="     Display Name     "
+            onChangeText={(name) => {
+              setName(name);
+            }}
           />
         </View>
-        <View
-          style={styles.inputContainer}
-        >
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder='   Scavenger Code   '
+            placeholder="   Scavenger Code   "
+            autoCapitalize="characters"
+            onChangeText={(code) => {
+              setCode(code);
+            }}
           />
         </View>
 
         <TouchableOpacity
-          activeOpacity={.9}
+          activeOpacity={0.9}
           style={styles.roomButton}
-          onPress={() => onEnterPress()}>
+          onPress={() => onEnterPress()}
+        >
           <Text style={styles.buttonText}>Enter Room</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Click to host a game.</Text>
         <TouchableOpacity
-          activeOpacity={.9}
+          activeOpacity={0.9}
           style={styles.hostButton}
-          onPress={() => onHostPress()}>
+          onPress={() => onHostPress()}
+        >
           <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
-
       </ImageBackground>
-
     </>
   );
 }
@@ -152,10 +160,10 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 15,
     paddingHorizontal: 70,
-    marginTop: 20
+    marginTop: 20,
   },
   textInput: {
-    fontSize: 20
+    fontSize: 20,
   },
   roomButton: {
     backgroundColor: colours.black,
@@ -182,5 +190,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,
     fontSize: 20,
     marginTop: 5,
-  }
+  },
 });
