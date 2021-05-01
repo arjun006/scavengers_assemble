@@ -20,6 +20,11 @@ export default StyleSheet.create({
         fontSize: 25,
         color: colours.white
     },
+    nameList: {
+        fontSize: 20,
+        color: colours.white
+    }, 
+
     whiteText: {
         fontSize: 18,
         color: colours.white,
