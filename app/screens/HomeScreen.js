@@ -52,13 +52,11 @@ export default function HomeScreen() {
             placeholder='   Scavenger Code   '
           />
         </View>
-        <View
-      style={styles.buttonContainer}
-      >
           <Button
             title="Enter Room"
+            style={styles.button}
           />
-      </View>
+     
       </ImageBackground>
       
     </>
@@ -78,19 +76,20 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: colours.white,
     borderRadius: 35,
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingVertical: 15,
     paddingHorizontal: 70,
     marginTop: 20   
   },
   textInput: {
       fontSize: 20
   },
-  buttonContainer: {
-    justifyContent: "flex-start"
-    
-  },
   button: {
-
+    backgroundColor: colours.black,
+    borderRadius: 35,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingHorizontal: 70,
+    marginTop: 20, 
+    fontSize: 20  
   }
 });
