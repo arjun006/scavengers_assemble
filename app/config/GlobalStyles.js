@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import colours from '../config/colours';
 
 export default StyleSheet.create({
     background: {
-        backgroundColor: '#EA5455',
+        backgroundColor: colours.red,
         flex: 1,
         borderWidth: 1,
         display: 'flex',
@@ -12,10 +13,24 @@ export default StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        color: '#FFB400'
+        color: colours.yellow
     },
     subtitle: {
         fontSize: 30,
-        color: '#F6F6F6'
+        color: colours.white
+    },
+    whiteText: {
+        fontSize: 18,
+        color: colours.white
+    },
+    buttonBlack: {
+        backgroundColor: colours.black,
+        color: colours.white,
+        borderRadius: 100,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 25,
+        paddingRight: 25,
+        marginTop: 70
     }
 });
