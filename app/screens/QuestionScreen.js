@@ -75,9 +75,11 @@ export default function QuestionScreen() {
           <Camera
             ref={cam}
             style={{
-              flex: 7,
+              
               alignItems: "center",
               width: "80%",
+              height: "80%",
+              borderRadius: 50,
               flexDirection: "row",
             }}
             type={type}
@@ -99,7 +101,7 @@ export default function QuestionScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.score}>
+      <View>
         <Text style={styles.score_name}>John</Text>
         <Text style={styles.score_text}>500</Text>
       </View>

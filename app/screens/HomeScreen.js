@@ -7,8 +7,6 @@ import {
   Image,
   Button,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
@@ -23,7 +21,7 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('Waiting');
   };
   const onHostPress = () => {
-    // navigation.navigate('Lobby');
+    navigation.navigate('Lobby');
     // var database = firebase.database();
     // console.log('working');
 
