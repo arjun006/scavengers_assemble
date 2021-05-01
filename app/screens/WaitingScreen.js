@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
 
-export default WaitingScreen = () => {
+export default function WaitingScreen (){
     return (
         <View style={GlobalStyles.background}>
 

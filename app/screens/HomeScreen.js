@@ -14,7 +14,16 @@ import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({navigation}){
+    const[name, setName] = useState('');
+    const [code, setCode] = useState(0);
+
+    const onEnterPress = () => {
+        navigation.navigate('Waiting')
+    }
+    const onHostPress = () => {
+        navigation.navigate('Lobby')
+    }
 //   const [hasPermission, setHasPermission] = useState(null);
 
 //   useEffect(() => {
@@ -58,7 +67,8 @@ export default function HomeScreen({navigation}) {
         
         <TouchableOpacity
             activeOpacity={.9}
-            style={styles.roomButton}>
+            style={styles.roomButton}
+            onPress={()=>onEnterPress()}>
             <Text style={styles.buttonText}>Enter Room</Text>
         </TouchableOpacity>
 
@@ -66,7 +76,7 @@ export default function HomeScreen({navigation}) {
         <TouchableOpacity
             activeOpacity={.9}
             style={styles.hostButton}
-            onPress={()=> {navigation.navigate('LobbyScreen')}}>
+            onPress={()=>onHostPress()}>
             <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
      
