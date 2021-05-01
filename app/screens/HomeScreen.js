@@ -52,14 +52,15 @@ export default function HomeScreen() {
             placeholder='   Scavenger Code   '
           />
         </View>
-      </ImageBackground>
-      <View
+        <View
       style={styles.buttonContainer}
       >
           <Button
             title="Enter Room"
           />
       </View>
+      </ImageBackground>
+      
     </>
   );
 }
@@ -87,5 +88,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     justifyContent: "flex-start"
+    
+  },
+  button: {
+
   }
 });
