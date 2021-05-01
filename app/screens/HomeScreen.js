@@ -19,6 +19,7 @@ export default function HomeScreen({navigation}){
     const [code, setCode] = useState(0);
 
     const onEnterPress = () => {
+        
         navigation.navigate('Waiting')
     }
     const onHostPress = () => {
@@ -54,6 +55,7 @@ export default function HomeScreen({navigation}){
           <TextInput 
             style={styles.textInput}
             placeholder='     Display Name     '
+            onChangeText={(name)=>{setName(name)}}
           />
         </View>
         <View
@@ -62,6 +64,8 @@ export default function HomeScreen({navigation}){
           <TextInput 
             style={styles.textInput}
             placeholder='   Scavenger Code   '
+            autoCapitalize="characters"
+            onChangeText={(code)=>{setCode(code)}}
           />
         </View>
         
