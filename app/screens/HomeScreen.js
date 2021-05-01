@@ -7,13 +7,19 @@ export default function HomeScreen() {
     ask: true,
   });
 
-  if (!permission || permission.status !== "granted") {
-    return (
-      <View>
-        <Text>Permission is not granted</Text>
-        <Button title="Grant permission" onPress={askForPermission} />
-      </View>
-    );
-  }
-  return <View></View>;
+  // if (!permission || permission.status !== "granted") {
+  //   return (
+  //     <View>
+  //       <Text>Permission is not granted</Text>
+  //       <Button title="Grant permission" onPress={askForPermission} />
+  //     </View>
+  //   );
+  // }
+  return (
+    <View>
+      <Text>
+        bdeb
+      </Text>
+    </View>
+  );
 }
