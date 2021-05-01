@@ -1,11 +1,15 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
-import {View, Text, Button, StyleSheet, ActivityIndicator} from "react-native";
+import React, { useState } from "react";
+import {View, Text, StyleSheet, ActivityIndicator} from "react-native";
 import GlobalStyles from './../config/GlobalStyles';
 import colours from '../config/colours';
 import { color } from "react-native-reanimated";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
 
 export default function LeaderBoardScreen() {
+  const [isHost] = useState(false);
   const score = [
     ['John', 234],
     ['Sarah', 234],
@@ -33,10 +37,21 @@ export default function LeaderBoardScreen() {
                     ))
                 }
           </View>
-        <Text style={LBoardStyles.title}>Waiting for host to start next hunt</Text>
-
-        <ActivityIndicator size="large" color={colours.black} style={WaitingStyles.loader} />
-
+          
+          {!isHost? 
+            <View>
+              <Text style={LBoardStyles.title}>Waiting for host to start next hunt </Text>
+              <ActivityIndicator size="large" color={colours.black} style={WaitingStyles.loader} /> 
+            </View>
+            : 
+              <View>
+                <TouchableOpacity
+                  activeOpacity={.9}
+                  style={GlobalStyles.buttonBlack}>
+                  <Text style={GlobalStyles.whiteText}>New Game</Text>
+                </TouchableOpacity>
+              </View> 
+          }
     </View>
   );
 }
