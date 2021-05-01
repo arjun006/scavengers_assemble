@@ -12,12 +12,13 @@ export default StyleSheet.create({
         paddingTop: 100,
     },
     title: {
-        fontSize: 30,
-        color: colours.yellow
+        fontSize: 28,
+        color: colours.yellow,
+        textAlign: 'center'
     },
     subtitle: {
-        fontSize: 30,
-        color: '#F6F6F6'
+        fontSize: 25,
+        color: colours.white
     },
     nameList: {
         fontSize: 20,
@@ -26,7 +27,12 @@ export default StyleSheet.create({
 
     whiteText: {
         fontSize: 18,
-        color: colours.white
+        color: colours.white,
+        textAlign: 'center'
+    },
+    yellowText: {
+        fontSize: 18,
+        color: colours.yellow
     },
     buttonBlack: {
         backgroundColor: colours.black,
@@ -36,6 +42,6 @@ export default StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 25,
         paddingRight: 25,
-        marginTop: 70
+       
     }
 });

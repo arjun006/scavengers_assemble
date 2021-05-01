@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
-import {View, Text, Button, StyleSheet} from "react-native";
+import {View, Text, Button, StyleSheet, ActivityIndicator} from "react-native";
 import GlobalStyles from './../config/GlobalStyles';
 import colours from '../config/colours';
 import { color } from "react-native-reanimated";
@@ -15,28 +15,48 @@ export default function LeaderBoardScreen() {
   return (
     <View style={GlobalStyles.background}>
         <Text style={GlobalStyles.title}>Leaderboard</Text>
-        <View style={LBoardStyles.scoreContainer}>
+        <View style={LBoardStyles.nameContainer}>
                 {
                     score.map((pScore, index) => (
                       <View>
-                        <Text style={LBoardStyles.pScore}>{pScore[0] + "                      " + pScore[1]}</Text>
+                        <Text style={LBoardStyles.pScore}>{pScore[0]}</Text>
+                      </View>
+                    ))
+                }
+          </View>
+          <View style={LBoardStyles.scoreContainer}>
+                {
+                    score.map((pScore, index) => (
+                      <View>
+                        <Text style={LBoardStyles.pScore}>{pScore[1]}</Text>
                       </View>
                     ))
                 }
           </View>
         <Text style={LBoardStyles.title}>Waiting for host to start next hunt</Text>
 
+        <ActivityIndicator size="large" color={colours.black} style={WaitingStyles.loader} />
+
     </View>
   );
 }
 const LBoardStyles = StyleSheet.create({
-  scoreContainer: {
+  nameContainer: {
       marginTop: 30,
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       flexWrap: "wrap",
+      paddingRight: 250,
       marginBottom: 100
   },
+  scoreContainer: {
+    marginTop: -236,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    flexWrap: "wrap",
+    paddingLeft: 250,
+    marginBottom: 100
+},
   pScore: {
       borderRadius: 50,
       paddingTop: 5,
@@ -48,5 +68,19 @@ const LBoardStyles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: colours.yellow
+  }
+});
+
+const WaitingStyles = StyleSheet.create({
+  waitingTitleContainer: {
+      marginTop: 100
+  },
+  loader: {
+      marginTop: 50
+  },
+  tip: {
+      flex: 1,
+      alignItems: "center",
+      marginTop: 290
   }
 });

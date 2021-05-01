@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
-import { TextInput } from "react-native-gesture-handler";
+import GlobalStyles from "../config/GlobalStyles";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
 //   const [hasPermission, setHasPermission] = useState(null);
@@ -52,13 +53,20 @@ export default function HomeScreen() {
             placeholder='   Scavenger Code   '
           />
         </View>
-        <View
-      style={styles.buttonContainer}
-      >
-          <Button
-            title="Enter Room"
-          />
-      </View>
+        
+        <TouchableOpacity
+            activeOpacity={.9}
+            style={styles.roomButton}>
+            <Text style={styles.buttonText}>Enter Room</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.text}>Click to host a game.</Text>
+        <TouchableOpacity
+            activeOpacity={.9}
+            style={styles.hostButton}>
+            <Text style={styles.buttonText}>Host Game</Text>
+        </TouchableOpacity>
+     
       </ImageBackground>
       
     </>
@@ -78,19 +86,37 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: colours.white,
     borderRadius: 35,
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingVertical: 15,
     paddingHorizontal: 70,
     marginTop: 20   
   },
   textInput: {
       fontSize: 20
   },
-  buttonContainer: {
-    justifyContent: "flex-start"
-    
+  roomButton: {
+    backgroundColor: colours.black,
+    color: colours.white,
+    borderRadius: 35,
+    paddingVertical: 15,
+    paddingHorizontal: 100,
+    fontSize: 20,
+    marginTop: 20,
   },
-  button: {
-
+  buttonText: {
+      fontSize: 20,
+      color: colours.white,
+  },
+  text: {
+      color: colours.white,
+      marginTop: 75,
+  },
+  hostButton: {
+    backgroundColor: colours.yellow,
+    color: colours.white,
+    borderRadius: 35,
+    paddingVertical: 15,
+    paddingHorizontal: 100,
+    fontSize: 20,
+    marginTop: 5,
   }
 });
