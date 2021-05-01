@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./app/screens/HomeScreen";
 import LobbyScreen from "./app/screens/LobbyScreen";
+import LeaderBoardScreen from "./app/screens/LeaderBoardScreen";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
   global.btoa = encode;
@@ -44,7 +45,7 @@ export default function App() {
           headerShown: false,
           cardStyle: { backgroundColor: '#0000' }
         }}>
-        <Stack.Screen name="Lobby" component={LobbyScreen} />
+        <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

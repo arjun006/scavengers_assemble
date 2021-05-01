@@ -17,5 +17,9 @@ export default StyleSheet.create({
     subtitle: {
         fontSize: 30,
         color: '#F6F6F6'
-    }
+    },
+    nameList: {
+        fontSize: 20,
+        color: '#FFFFFF'
+    },
 });
