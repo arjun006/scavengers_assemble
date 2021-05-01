@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import * as Permissions from "expo-permissions";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Camera } from "expo-camera";
 
 export default function HomeScreen() {
-  // const [permission, askForPermission] = usePermissions(Permissions.CAMERA, {
-  //   ask: true,
-  // });
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
 
-  // if (!permission || permission.status !== "granted") {
-  //   return (
-  //     <View>
-  //       <Text>Permission is not granted</Text>
-  //       <Button title="Grant permission" onPress={askForPermission} />
-  //     </View>
-  //   );
-  // }
-  return (
-    <View>
-      <Text>bdeb</Text>
-    </View>
-  );
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+  return <View></View>;
 }
