@@ -44,7 +44,8 @@ export default function App() {
           headerShown: false,
           cardStyle: { backgroundColor: '#0000' }
         }}>
-        <Stack.Screen name="Lobby" component={LobbyScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        {/* <Stack.Screen name="Lobby" component={LobbyScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
