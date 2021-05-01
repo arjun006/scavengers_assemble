@@ -7,39 +7,39 @@ import {
   Image,
   Button,
 } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { Camera } from "expo-camera";
 
-export default function HomeScreen({navigation}){
-    const[name, setName] = useState('');
-    const [code, setCode] = useState(0);
+export default function HomeScreen({ navigation }) {
+  const [name, setName] = useState("");
+  const [code, setCode] = useState(0);
 
-    const onEnterPress = () => {
-        
-        navigation.navigate('Waiting')
-    }
-    const onHostPress = () => {
-        navigation.navigate('Lobby')
-    }
-//   const [hasPermission, setHasPermission] = useState(null);
+  const onEnterPress = () => {
+    navigation.navigate("Waiting");
+  };
+  const onHostPress = () => {
+    navigation.navigate("Lobby");
+  };
+  const [hasPermission, setHasPermission] = useState(null);
 
-//   useEffect(() => {
-//     (async () => {
-//     //   const { status } = await Camera.requestPermissionsAsync();
-//     //   setHasPermission(status === "granted");
-//     })();
-//   }, []);
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-//   if (hasPermission === null) {
-//     return <View />;
-//   }
-//   if (hasPermission === false) {
-//     return <Text>No access to camera</Text>;
-//   }
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
   return (
     <>
       <View
@@ -49,43 +49,43 @@ export default function HomeScreen({navigation}){
         <View style={styles.logoContainer}>
           <Image source={require("../images/Title.png")} />
         </View>
-        <View
-        style={styles.inputContainer}
-        >
-          <TextInput 
+        <View style={styles.inputContainer}>
+          <TextInput
             style={styles.textInput}
-            placeholder='     Display Name     '
-            onChangeText={(name)=>{setName(name)}}
+            placeholder="     Display Name     "
+            onChangeText={(name) => {
+              setName(name);
+            }}
           />
         </View>
-        <View
-        style={styles.inputContainer}
-        >
-          <TextInput 
+        <View style={styles.inputContainer}>
+          <TextInput
             style={styles.textInput}
-            placeholder='   Scavenger Code   '
+            placeholder="   Scavenger Code   "
             autoCapitalize="characters"
-            onChangeText={(code)=>{setCode(code)}}
+            onChangeText={(code) => {
+              setCode(code);
+            }}
           />
         </View>
-        
+
         <TouchableOpacity
-            activeOpacity={.9}
-            style={styles.roomButton}
-            onPress={()=>onEnterPress()}>
-            <Text style={styles.buttonText}>Enter Room</Text>
+          activeOpacity={0.9}
+          style={styles.roomButton}
+          onPress={() => onEnterPress()}
+        >
+          <Text style={styles.buttonText}>Enter Room</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Click to host a game.</Text>
         <TouchableOpacity
-            activeOpacity={.9}
-            style={styles.hostButton}
-            onPress={()=>onHostPress()}>
-            <Text style={styles.buttonText}>Host Game</Text>
+          activeOpacity={0.9}
+          style={styles.hostButton}
+          onPress={() => onHostPress()}
+        >
+          <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
-     
       </ImageBackground>
-      
     </>
   );
 }
@@ -105,10 +105,10 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 15,
     paddingHorizontal: 70,
-    marginTop: 20   
+    marginTop: 20,
   },
   textInput: {
-      fontSize: 20
+    fontSize: 20,
   },
   roomButton: {
     backgroundColor: colours.black,
@@ -120,12 +120,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-      fontSize: 20,
-      color: colours.white,
+    fontSize: 20,
+    color: colours.white,
   },
   text: {
-      color: colours.white,
-      marginTop: 75,
+    color: colours.white,
+    marginTop: 75,
   },
   hostButton: {
     backgroundColor: colours.yellow,
@@ -135,5 +135,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,
     fontSize: 20,
     marginTop: 5,
-  }
+  },
 });
