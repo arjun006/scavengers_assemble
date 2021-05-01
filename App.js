@@ -15,6 +15,7 @@ if (!global.atob) {
 }
 
 import * as firebase from "firebase";
+import QuestionScreen from "./app/screens/QuestionScreen";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRTgDvOp21bQ3F4aY4QPdSjkFarshOSxY",
@@ -42,8 +43,10 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: '#0000' }
-        }}>
+          cardStyle: { backgroundColor: "#0000" },
+        }}
+      >
+        <Stack.Screen name="Question" component={QuestionScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />

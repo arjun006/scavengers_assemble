@@ -55,9 +55,8 @@ export default function QuestionScreen() {
           isPlaying={isPlaying}
           duration={60}
           colors={[
-            ["#004777", 0.4],
-            ["#F7B801", 0.4],
-            ["#A30000", 0.2],
+            ["#00FF00", 0.83],
+            ["#FF8C00", 0.17],
           ]}
           onComplete={(prev) => !prev}
         >
@@ -167,10 +166,10 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   timer: {
+    height: "7%",
     flexDirection: "row",
     justifyContent: "flex-end",
-    flex: 1,
-    height: "10%",
+    alignItems: "center",
     width: "100%",
     padding: 10,
   },
