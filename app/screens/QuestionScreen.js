@@ -1,64 +1,69 @@
 import "react-native-gesture-handler";
 import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Camera } from "expo-camera";
 
 export default function QuestionScreen() {
-  const [isCameraReady, setIsCameraReady] = useState(false);
-  const cameraRef = useRef();
-  const onCameraReady = () => {
-    setIsCameraReady(true);
-  };
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const cam = useRef();
+
   const takePicture = async () => {
-    if (cameraRef.current) {
-      const data = await cameraRef.current.takePictureAsync(options);
-      const source = data.uri;
+    if (cam.current) {
+      const options = { quality: 0.5, base64: true, skipProcessing: false };
+      let photo = await cam.current.takePictureAsync(options);
+      const source = photo.uri;
       if (source) {
-        await cameraRef.current.pausePreview();
-        setIsPreview(true);
-        console.log("picture source", source);
+        cam.current.resumePreview();
+        console.log(source);
       }
     }
   };
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <Text>Timer</Text>
-        <Text>Take a picture of</Text>
-        <Text>Towel</Text>
-        <Camera
-          type={Camera.Constants.Type.front}
-          onCameraReady={onCameraReady}
+      <Camera ref={cam} style={{ flex: 1, alignItems: "center" }} type={type}>
+        <View
+          style={{
+            padding: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          <TouchableOpacity>
-            <Button
-              title="Capture"
-              disabled={!isCameraReady}
-              onPress={takePicture}
-            />
+          <TouchableOpacity onPress={takePicture}>
+            <Text style={styles.text}>Capture</Text>
           </TouchableOpacity>
-        </Camera>
-        <Button title="Take a picture" onPress={onCameraReady} />
-      </View>
-      <View style={styles.bottom}>
-        <Text>Footer</Text>
-      </View>
+        </View>
+      </Camera>
+      <Button title="Take a picture" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "column",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
-  button: {
-    position: "absolute",
+  cameraview: {
+    flexDirection: "column",
+    flex: 2,
   },
-  bottom: {
-    flex: 1,
-    justifyContent: "flex-end",
-    marginBottom: 1,
+  text: {
+    fontSize: 18,
+    color: "yellow",
   },
 });

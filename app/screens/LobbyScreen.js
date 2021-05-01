@@ -44,8 +44,7 @@ const LobbyStyles = StyleSheet.create({
         margin: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        fontSize: 18
+        paddingLeft: 20,
+        paddingRight: 20
     }
 });

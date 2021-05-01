@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./app/screens/HomeScreen";
 import LobbyScreen from "./app/screens/LobbyScreen";
+import WaitingScreen from "./app/screens/WaitingScreen";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
   global.btoa = encode;
