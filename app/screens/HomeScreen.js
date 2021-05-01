@@ -1,34 +1,20 @@
 import React from 'react';
-import '../config/colours'
 import { Alert, Button, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import colours from '../config/colours';
 const handlePress = (name) => {
     Alert.alert(name)
 }
-function WelcomeScreen(props){
+function HomeScreen(props){
     return(
         <ImageBackground 
             style={styles.background}
-            source={require("../assets/welcomeScreen.jpg")}
         >
-            <View style={styles.logoContainer}>
-            <Image
-                style={styles.logo} 
-                source={require("../assets/adaptive-icon.png")}
-            />
-            <Text>VacTrax</Text>
-            </View>
-            <View style={styles.loginButton}>  
+            
+       
+            <View style={styles.playButton}>
             <Button 
-                    onPress={handlePress("Login")}
-                    title="Log In"
-                    color={colours.primary}
-            />
-            </View>
-            <View style={styles.registerButton}>
-            <Button 
-                onPress={handlePress("Registration")}
-                title="Registration"
+                onPress={handlePress("Play")}
+                title="Play"
             />
             </View>
     
@@ -52,13 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: colours.primary,
         color: 'red'
     },
-    loginButton:{
-        width: '70%',
-        height: 80,
-        backgroundColor: colours.primary,
-        
-    },
-    registerButton:{
+    playButton:{
         marginBottom: "20%",
         marginVertical: 10,
         width: '70%',
@@ -79,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default WelcomeScreen; 
+export default HomeScreen; 
