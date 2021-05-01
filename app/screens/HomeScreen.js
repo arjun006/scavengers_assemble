@@ -10,6 +10,7 @@ import {
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
+import QuestionGenerator from './../QuestionGenerator/QuestionGenerator';
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as firebase from "firebase";
 
@@ -35,27 +36,30 @@ export default function HomeScreen({ navigation }) {
 
   const generateLobby = () => {
     //Genere Random Lobby ID
-    let lobbyId = 0;
+    let lobbyId = Math.floor(Math.random() * 97999) + 10000;
 
     //Check if it exists in DB
     let isValid = false;
     console.log(lobbyId);
 
     //If exist => Regenerate
-    do {
-      lobbyId = Math.floor(Math.random() * 99999) + 10000;
-      isValid = lobbyIdValidation(lobbyId);
-    } while (!isValid);
+    // do {
+    //   lobbyId = Math.floor(Math.random() * 99999) + 10000;
+    //   isValid = lobbyIdValidation(lobbyId);
+    // } while (!isValid);
 
-    console.log(lobbyId);
+    const randomGeneratedQuestion = QuestionGenerator(5);
     //Else => Push it to DB
     const db = firebase.database();
 
     db.ref(`${lobbyId}/`).set({
       gameStarted: false,
-      score: [],
+      score: {
+
+      },
       currentQuestion: 0,
-      Question: []
+      totalQuestion: 5,
+      Question: randomGeneratedQuestion
     });
   };
 
