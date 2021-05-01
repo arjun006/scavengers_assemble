@@ -7,7 +7,15 @@ export default StyleSheet.create({
         borderWidth: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 100,
+    },
+    title: {
+        fontSize: 30,
+        color: '#FFB400'
+    },
+    subtitle: {
+        fontSize: 30,
+        color: '#F6F6F6'
     }
 });

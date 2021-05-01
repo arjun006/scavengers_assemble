@@ -4,7 +4,12 @@ import GlobalStyles from './../config/GlobalStyles';
 export default LobbyScreen = () => {
     return (
         <View style={GlobalStyles.background}>
-            <Text>Lobby</Text>
+            <Text style={GlobalStyles.title}>SCAVENGER CODE</Text>
+            <Text style={GlobalStyles.subtitle}>89377</Text>
+
+            <View>
+
+            </View>
         </View>
     );
 };
