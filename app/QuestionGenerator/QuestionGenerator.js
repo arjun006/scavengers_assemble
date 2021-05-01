@@ -16,7 +16,6 @@ export default (limit) => {
             completed: false
         };
         count++;
-        console.log('generate');
     }
 
     return result;

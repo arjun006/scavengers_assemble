@@ -1,8 +1,16 @@
 import "react-native-gesture-handler";
-import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
 import colours from "../config/colours";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import { Camera } from "expo-camera";
 
@@ -10,6 +18,7 @@ export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [correct, setCorrect] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const cam = useRef();
 
   const takePicture = async () => {
@@ -40,34 +49,54 @@ export default function QuestionScreen() {
 
   return (
     <View style={styles.background}>
-      <Text style={GlobalStyles.title}>Take a Picture of</Text>
-      <Text style={styles.subs}>Towel</Text>
-      {!correct ? (
-        <Camera
-          ref={cam}
-          style={{
-            flex: 7,
-            alignItems: "center",
-            width: "80%",
-            flexDirection: "row",
-          }}
-          type={type}
+      <View style={styles.timer}>
+        <CountdownCircleTimer
+          size={70}
+          isPlaying={isPlaying}
+          duration={60}
+          colors={[
+            ["#00FF00", 0.83],
+            ["#FF8C00", 0.17],
+          ]}
+          onComplete={(prev) => !prev}
         >
-          <View
+          {({ remainingTime, animatedColor }) => (
+            <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
+              {remainingTime}
+            </Animated.Text>
+          )}
+        </CountdownCircleTimer>
+      </View>
+      <View style={styles.new_background}>
+        <Text style={GlobalStyles.title}>Take a Picture of</Text>
+        <Text style={styles.subs}>Towel</Text>
+        {!correct ? (
+          <Camera
+            ref={cam}
             style={{
-              padding: 20,
-              flex: 1,
-              height: "28%",
-              justifyContent: "space-between",
+              flex: 7,
               alignItems: "center",
+              width: "80%",
+              flexDirection: "row",
             }}
-          ></View>
-        </Camera>
-      ) : null}
-      <View style={styles.bottom}>
-        <TouchableOpacity style={styles.button} onPress={takePicture}>
-          <Text style={styles.buttonText}>Take a picture</Text>
-        </TouchableOpacity>
+            type={type}
+          >
+            <View
+              style={{
+                padding: 20,
+                flex: 1,
+                height: "28%",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            ></View>
+          </Camera>
+        ) : null}
+        <View style={styles.bottom}>
+          <TouchableOpacity style={styles.button} onPress={takePicture}>
+            <Text style={styles.buttonText}>Take a picture</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.score}>
         <Text style={styles.score_name}>John</Text>
@@ -133,8 +162,20 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     display: "flex",
+
+    paddingTop: 50,
+  },
+  timer: {
+    height: "7%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    width: "100%",
+    padding: 10,
+  },
+  new_background: {
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 50,
+    flex: 1,
   },
 });
