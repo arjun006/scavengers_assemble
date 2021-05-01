@@ -1,11 +1,11 @@
-import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { StyleSheet, View, Text } from "react-native";
 import * as Permissions from "expo-permissions";
 
 export default function HomeScreen() {
-  const [permission, askForPermission] = usePermissions(Permissions.CAMERA, {
-    ask: true,
-  });
+  // const [permission, askForPermission] = usePermissions(Permissions.CAMERA, {
+  //   ask: true,
+  // });
 
   // if (!permission || permission.status !== "granted") {
   //   return (
@@ -17,9 +17,7 @@ export default function HomeScreen() {
   // }
   return (
     <View>
-      <Text>
-        bdeb
-      </Text>
+      <Text>bdeb</Text>
     </View>
   );
 }
