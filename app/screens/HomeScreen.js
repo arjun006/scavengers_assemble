@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -33,7 +33,7 @@ export default function HomeScreen() {
       ></View>
       <ImageBackground style={styles.background}>
         <View style={styles.logoContainer}>
-          <Image source={require("../assets/Title.png")} />
+          <Image source={require("../images/Title.png")} />
         </View>
         <View>
           <Button />
