@@ -12,13 +12,14 @@ import '@firebase/auth';
 import '@firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: '',
-  authDomain: 'your-auth-domain-b1234.firebaseapp.com',
-  databaseURL: 'https://your-database-name.firebaseio.com',
-  projectId: 'your-project-id-1234',
-  storageBucket: 'your-project-id-1234.appspot.com',
-  messagingSenderId: '12345-insert-yourse',
-  appId: 'insert yours: 1:1234:web:ee873bd1234c0deb7eba61ce',
+  apiKey: "AIzaSyCRTgDvOp21bQ3F4aY4QPdSjkFarshOSxY",
+  authDomain: "scavengers-assemble.firebaseapp.com",
+  databaseURL: "https://scavengers-assemble-default-rtdb.firebaseio.com",
+  projectId: "scavengers-assemble",
+  storageBucket: "scavengers-assemble.appspot.com",
+  messagingSenderId: "91227724299",
+  appId: "1:91227724299:web:1adf1aba8f1449fbacc50e",
+  measurementId: "G-L8PH7QJ331"
 };
 
 if (!firebase.apps.length) {
