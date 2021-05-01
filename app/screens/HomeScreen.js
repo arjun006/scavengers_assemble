@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, ImageBackground, Image, Button } from "react-native";
 import * as Permissions from "expo-permissions";
 import colours from '../config/colours';
-useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-
 
 export default function HomeScreen() {
+    useEffect(() => {
+        (async () => {
+          const { status } = await Camera.requestPermissionsAsync();
+          setHasPermission(status === "granted");
+        })();
+      }, []);
+    
+      if (hasPermission === null) {
+        return <View />;
+      }
+      if (hasPermission === false) {
+        return <Text>No access to camera</Text>;
+      }
   return (
     <>
     <View style={{backgroundColor: styles.background.backgroundColor}}>
@@ -37,7 +36,9 @@ export default function HomeScreen() {
     </>
 
   );
+ 
 
+}
 const styles = StyleSheet.create({
     background: {
         flex: 1,
