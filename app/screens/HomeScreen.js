@@ -19,7 +19,7 @@ export default function HomeScreen({navigation}){
     const [code, setCode] = useState(0);
 
     const onEnterPress = () => {
-        
+
         navigation.navigate('Waiting')
     }
     const onHostPress = () => {
