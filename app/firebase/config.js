@@ -3,7 +3,7 @@ import '@firebase/auth';
 import '@firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'YOUR_KEY_HERE_AIzaSyAOWH',
+  apiKey: '',
   authDomain: 'your-auth-domain-b1234.firebaseapp.com',
   databaseURL: 'https://your-database-name.firebaseio.com',
   projectId: 'your-project-id-1234',
