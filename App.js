@@ -14,8 +14,8 @@ if (!global.btoa) {
 if (!global.atob) {
   global.atob = decode;
 }
-
 import * as firebase from "firebase";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRTgDvOp21bQ3F4aY4QPdSjkFarshOSxY",
@@ -43,13 +43,15 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: '#0000' }
-        }}>
-        <Stack.Screen name="Question" component={QuestionScreen}/>
+          cardStyle: { backgroundColor: "#0000" },
+        }}
+      >
+        
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />
         <Stack.Screen name="Waiting" component={WaitingScreen} />
+        <Stack.Screen name="Question" component={QuestionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

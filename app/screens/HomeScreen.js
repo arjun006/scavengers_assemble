@@ -73,21 +73,21 @@ export default function HomeScreen({ navigation }) {
     });
   };
 
-  //   const [hasPermission, setHasPermission] = useState(null);
+    const [hasPermission, setHasPermission] = useState(null);
 
-  //   useEffect(() => {
-  //     (async () => {
-  //     //   const { status } = await Camera.requestPermissionsAsync();
-  //     //   setHasPermission(status === "granted");
-  //     })();
-  //   }, []);
+    useEffect(() => {
+      (async () => {
+        const { status } = await Camera.requestPermissionsAsync();
+        setHasPermission(status === "granted");
+      })();
+    }, []);
 
-  //   if (hasPermission === null) {
-  //     return <View />;
-  //   }
-  //   if (hasPermission === false) {
-  //     return <Text>No access to camera</Text>;
-  //   }
+    if (hasPermission === null) {
+      return <View />;
+    }
+    if (hasPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
   return (
     <>
       <View
