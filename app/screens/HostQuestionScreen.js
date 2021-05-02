@@ -60,7 +60,12 @@ export default function HostQuestionScreen({ route, navigation }) {
                 setTotalSubmission(totalSubmission);
 
                 if (submission === playerCount) {
-                    onQuestionComplete();
+                    navigation.push('LeaderBoardScreen', {
+                        lobbyId,
+                        isHost,
+                        isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+                        currentQuestionIndex: currentQuestionIndex + 1
+                    });
                 }
             }
         });

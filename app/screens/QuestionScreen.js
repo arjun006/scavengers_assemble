@@ -71,16 +71,6 @@ export default function QuestionScreen({ route, navigation }) {
   //   console.log(answer);  
   // },[answer]);
 
-  const handleTimerComplete = () => {
-    //Navigate to leaderboard
-    navigation.push("LeaderBoardScreen", {
-      currentQuestionIndex: currentQuestionIndex + 1,
-      isHost,
-      lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-    });
-  };
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -118,7 +108,13 @@ export default function QuestionScreen({ route, navigation }) {
         const { submission } = allQuestions[currentQuestionIndex];
 
         if (submission === playerCount) {
-          handleTimerComplete();
+          //Navigate to leaderboard
+          navigation.push("LeaderBoardScreen", {
+            currentQuestionIndex: currentQuestionIndex + 1,
+            isHost,
+            lobbyId,
+            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+          });
         }
       }
 
@@ -133,10 +129,6 @@ export default function QuestionScreen({ route, navigation }) {
     return <Text>No access to camera</Text>;
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0fb707435680fa1283c7bf8ef877bd1aedc7811f
   return (
     <View style={styles.background}>
       <View style={styles.topbar}>
