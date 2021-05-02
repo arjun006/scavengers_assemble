@@ -106,6 +106,7 @@ export default function QuestionScreen({ route, navigation }) {
   // useEffect(()=>{
   //   console.log(answer);
   // },[answer]);
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
