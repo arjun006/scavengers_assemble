@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator, Animated } from "react-native";
 import GlobalStyles from './../config/GlobalStyles';
 import colours from '../config/colours';
 import { color } from "react-native-reanimated";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import * as firebase from "firebase";
 
 export default function LeaderBoardScreen({ route, navigation }) {
@@ -46,7 +47,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
     else {
 
       if (isHost) {
-        navigation.navigate('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+        navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
       }
       else {
         navigation.push('Question', {
@@ -60,10 +61,10 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
   return (
     <View style={GlobalStyles.background}>
-      <View style={styles.timer}>
+      <View style={LBoardStyles.timer}>
         <CountdownCircleTimer
           size={70}
-          isPlaying={isPlaying}
+          isPlaying={true}
           duration={5}
           colors={[
             ["#00FF00", 0.83],
