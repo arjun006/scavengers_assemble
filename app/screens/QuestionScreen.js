@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
+// import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-
+import { Vision} from "@google-cloud/vision";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
 import * as ImagePicker from 'expo-image-picker';
@@ -21,6 +22,7 @@ export default function QuestionScreen() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [correct, setCorrect] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [picture, setPicture] = useState(null);
   const cam = useRef();
 
     const takePicture = async () => {
@@ -29,13 +31,15 @@ export default function QuestionScreen() {
         let photo = await cam.current.takePictureAsync(options);
         const source = photo.uri;
         console.log(source);
+        setPicture(source);
         if (source) {
           cam.current.resumePreview();
-          console.log(source);
+          //console.log(source);
         }
       }
       setCorrect((correct) => true);
     };
+
 //   const takePicture = async () => {
 //     let pickerResult = await ImagePicker.launchCameraAsync({
 //       allowsEditing: true,
