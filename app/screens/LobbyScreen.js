@@ -17,8 +17,9 @@ export default LobbyScreen = ({ route, navigation }) => {
     // const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
 
     useEffect(() => {
-        var starCountRef = db.ref(`${lobbyId}/score`);
-        starCountRef.on('value', (snapshot) => {
+        var debRef = db.ref(`${lobbyId}/score`);
+
+        debRef.on('value', (snapshot) => {
             let players = [];
             const dbValue = snapshot.val();
 
@@ -32,6 +33,14 @@ export default LobbyScreen = ({ route, navigation }) => {
                 setPlayerList(players);
         });
     }, []);
+
+    const startGame = () => {
+        var dbRef = db.ref(`${lobbyId}/`);
+
+        dbRef.update({
+            gameStarted: true
+        });
+    };
 
     return (
         <View style={GlobalStyles.background}>
@@ -48,7 +57,8 @@ export default LobbyScreen = ({ route, navigation }) => {
 
             <TouchableOpacity
                 activeOpacity={.9}
-                style={GlobalStyles.buttonBlack}>
+                style={GlobalStyles.buttonBlack}
+                onPress={() => startGame()}>
                 <Text style={GlobalStyles.whiteText}>Start Game</Text>
             </TouchableOpacity>
 
