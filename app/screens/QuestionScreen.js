@@ -59,12 +59,12 @@ export default function QuestionScreen({ route, navigation }) {
     });
     setAnswer(checker);
 
-    if (checker) {
-      const updates = {};
-      updates[`${lobbyId}/Question/${currentQuestionIndex}/submission`] = firebase.database.ServerValue.increment(1);
+    // if (checker) {
+    //   const updates = {};
+    //   updates[`${lobbyId}/Question/${currentQuestionIndex}/submission`] = firebase.database.ServerValue.increment(1);
 
-      db.ref().update(updates);
-    }
+    //   db.ref().update(updates);
+    // }
 
   };
 
