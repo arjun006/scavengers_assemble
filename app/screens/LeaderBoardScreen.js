@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from "firebase";
 
 export default function LeaderBoardScreen({ route, navigation }) {
-  const { lobbyId, isHost, isGameComplete } = route.params;
+  const { lobbyId, isHost, isGameComplete, currentQuestionIndex } = route.params;
   const db = firebase.database();
 
   const scores = [
@@ -25,7 +25,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
       navigation.push('Home');
     }
     else
-      navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete });
+      navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
   };
 
   return (
