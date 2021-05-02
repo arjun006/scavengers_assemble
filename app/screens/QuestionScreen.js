@@ -65,6 +65,7 @@ export default function QuestionScreen({ route, navigation }) {
       isHost,
       lobbyId,
       isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+      playerCount
     });
   };
   // useEffect(()=>{

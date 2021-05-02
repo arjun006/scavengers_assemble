@@ -12,7 +12,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
   const [scoreBoard, setScoreBoard] = useState([]);
 
-  const { lobbyId, isHost, isGameComplete, currentQuestionIndex } = route.params;
+  const { lobbyId, isHost, isGameComplete, currentQuestionIndex, playerCount } = route.params;
   const db = firebase.database();
 
   useEffect(() => {
@@ -58,14 +58,15 @@ export default function LeaderBoardScreen({ route, navigation }) {
     else {
 
       if (isHost) {
-        navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+        navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex, playerCount });
       }
       else {
         navigation.push('Question', {
           lobbyId,
           currentQuestionIndex,
           isHost,
-          isGameComplete
+          isGameComplete,
+          playerCount
         });
       }
     }
