@@ -22,25 +22,20 @@ export default function LeaderBoardScreen({ route, navigation }) {
     //Get Data
     dbRef.child(`/${lobbyId}/score`).get().then((snapshot) => {
 
-      let unorderedScore = {};
-      let orderedScore = [];
+      let scores = [];
 
       if (snapshot.exists()) {
         const players = snapshot.val();
 
         for (userId in players) {
           const { name, score } = players[userId];
-          unorderedScore[score] = { name };
+          scores.push([name, score]);
         }
 
-        Object.keys(unorderedScore).sort().reduce(
-          (obj, key) => {
-            orderedScore.push([obj[key], key]);
-            return;
-          },
-          {}
-        );
+        scores.sort(function (a, b) { return b[1] - a[1]; });
 
+
+        setScoreBoard(scores);
       }
     }).catch((error) => {
       console.error(error);
@@ -82,7 +77,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         <CountdownCircleTimer
           size={70}
           isPlaying={true}
-          duration={5}
+          duration={10}
           colors={[
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
@@ -101,7 +96,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
       <View style={LBoardStyles.leaderboardContainer}>
         {
-          scores.map((score, index) => (
+          scoreBoard.map((score, index) => (
             <View style={LBoardStyles.playerScoreContainer} key={index}>
               <Text style={GlobalStyles.nameList}>{score[0]}</Text>
               <Text style={GlobalStyles.nameList}>{score[1]}</Text>
