@@ -29,7 +29,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
         for (userId in players) {
           const { name, score } = players[userId];
-          unorderedScore.push([name, score]);
+          scores.push([name, score]);
         }
 
         scores.sort(function (a, b) { return b[1] - a[1]; });
