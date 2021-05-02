@@ -22,7 +22,6 @@ export default function HostQuestionScreen({ route, navigation }) {
     const { lobbyId, isHost, currentQuestionIndex } = route.params;
     const db = firebase.database();
 
-
     useEffect(() => {
         let dbRef = db.ref();
 

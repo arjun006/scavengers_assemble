@@ -35,7 +35,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
       <View style={LBoardStyles.leaderboardContainer}>
         {
           scores.map((score, index) => (
-            <View style={LBoardStyles.playerScoreContainer}>
+            <View style={LBoardStyles.playerScoreContainer} key={index}>
               <Text style={GlobalStyles.nameList}>{score[0]}</Text>
               <Text style={GlobalStyles.nameList}>{score[1]}</Text>
             </View>
@@ -43,7 +43,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         }
       </View>
 
-      {isHost ?
+      {!isHost ?
         <View>
           <Text style={LBoardStyles.title}>Waiting for host to start next hunt </Text>
           <ActivityIndicator size="large" color={colours.black} style={LBoardStyles.loader} />

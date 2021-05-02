@@ -15,15 +15,21 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Camera } from "expo-camera";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import * as firebase from "firebase";
 
-export default function QuestionScreen({ navigation }) {
+export default function QuestionScreen({ route, navigation }) {
   const [hasPermission, setHasPermission] = useState(null); //Permission State for Camera usage
   const [type, setType] = useState(Camera.Constants.Type.back); //Camera State front and back camera
   const [correct, setCorrect] = useState(false); //Turn Camera on and off
   const [isPlaying, setIsPlaying] = useState(true); //Countdown State playing
   const [answer, setAnswer] = useState(null); //Checkmark/Cross on off
   const [complete, setComplete] = useState(false); //Coundown finish state
+  const [currentObject, setCurrentObject] = useState(''); //Object Name
+  const [totalQuestion, setTotalQuestion] = useState(0); // Total questions
   const cam = useRef();
+  const db = firebase.database();
+
+  const { currentQuestionIndex, isHost, lobbyId } = route.params();
 
   const takePicture = async () => {
     if (cam.current) {
@@ -44,6 +50,24 @@ export default function QuestionScreen({ navigation }) {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+
+    let dbRef = db.ref();
+
+    //Get Data
+    dbRef.child(`/${lobbyId}`).get().then((snapshot) => {
+      if (snapshot.exists()) {
+        const { totalQuestion, Question } = snapshot.val();
+
+        const { object } = Question[currentQuestionIndex];
+
+        setCurrentObject(object);
+        setTotalQuestion(totalQuestion);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+
   }, []);
 
   if (hasPermission === null) {
@@ -78,7 +102,7 @@ export default function QuestionScreen({ navigation }) {
       <View style={styles.new_background}>
         <Text style={GlobalStyles.title}>Take a Picture of</Text>
         <Text style={styles.subs}>
-          Towel{"  "}
+          {currentObject}{"  "}
           {answer == true ? (
             <FontAwesome name="check" size={24} color="green" />
           ) : answer == false ? (
