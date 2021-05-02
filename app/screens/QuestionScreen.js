@@ -26,7 +26,7 @@ export default function QuestionScreen({ route, navigation }) {
   const [complete, setComplete] = useState(false); //Coundown finish state
   const [currentObject, setCurrentObject] = useState(""); //Object Name
   const [totalQuestion, setTotalQuestion] = useState(0); // Total questions
-  const [score, setScore] = useState(500);
+  const [score, setScore] = useState(0);
   const [time, setTime] = useState(0);
   const cam = useRef();
   const db = firebase.database();
@@ -61,7 +61,7 @@ export default function QuestionScreen({ route, navigation }) {
         checker = true;
         setCorrect(true);
         end = Date.now()
-        let scoreLost = 500 - (Math.floor((end-start)/1000) * 7);
+        let scoreLost = 500 - (Math.floor((end-start)/1000) * 10);
         setScore(scoreLost)
       }
     });
