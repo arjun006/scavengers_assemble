@@ -93,6 +93,10 @@ export default function LeaderBoardScreen({ route, navigation }) {
         </CountdownCircleTimer>
       </View>
 
+      {
+        isGameComplete ? <Text style={GlobalStyles.subtitle}>Game Over</Text> : null
+      }
+
       <Text style={GlobalStyles.title}>Leaderboard</Text>
 
       <View style={LBoardStyles.leaderboardContainer}>

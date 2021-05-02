@@ -23,8 +23,7 @@ export default StyleSheet.create({
     nameList: {
         fontSize: 20,
         color: colours.white
-    }, 
-
+    },
     whiteText: {
         fontSize: 18,
         color: colours.white,
@@ -42,6 +41,6 @@ export default StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 25,
         paddingRight: 25,
-       
+
     }
 });
