@@ -18,9 +18,9 @@ export default LobbyScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         var debRef = db.ref(`${lobbyId}/score`);
+        let players = [];
 
         debRef.on('value', (snapshot) => {
-            let players = [];
             const dbValue = snapshot.val();
 
             for (let userId in dbValue) {
@@ -32,6 +32,8 @@ export default LobbyScreen = ({ route, navigation }) => {
             if (players.length > 0)
                 setPlayerList(players);
         });
+
+        return () => { players = []; };
     }, []);
 
     const startGame = () => {

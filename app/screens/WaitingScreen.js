@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, Button, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator, BackHandler } from 'react-native';
 import GlobalStyles from './../config/GlobalStyles';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -12,9 +12,20 @@ export default function WaitingScreen({ route, navigation }) {
 
     console.log(`User ${name} has entered Lobby ${lobbyId}: ${id}`);
 
+    const backAction = () => {
+        Alert.alert("Hold on!", "Are you sure you want to go back?", [
+            {
+                text: "Cancel",
+                onPress: () => null
+            },
+            { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+    };
+
     useEffect(() => {
         var debRef = db.ref(`${lobbyId}/gameStarted`);
-
+        BackHandler.addEventListener("hardwareBackPress", backAction);
         debRef.on('value', (snapshot) => {
 
             const gameStarted = snapshot.val();
@@ -22,6 +33,11 @@ export default function WaitingScreen({ route, navigation }) {
             if (gameStarted)
                 navigation.navigate('Question');
         });
+
+
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
     }, []);
 
     return (
