@@ -16,15 +16,6 @@ export default callGoogleVIsionApi = async (base64) => {
     }
   );
 
-<<<<<<< HEAD
-    await googleVisionRes.json()
-        .then(googleVisionRes => {
-            return googleVisionRes.responses[0];
-        }).catch((error) => { });
-
-
-};
-=======
   await googleVisionRes
     .json()
     .then((googleVisionRes) => {
@@ -32,4 +23,3 @@ export default callGoogleVIsionApi = async (base64) => {
     })
     .catch((error) => {});
 };
->>>>>>> 2659a453d4ffed56ac2e24385d5e476388a30e48
