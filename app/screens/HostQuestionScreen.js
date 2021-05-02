@@ -57,7 +57,7 @@ export default function HostQuestionScreen({ route, navigation }) {
     }, []);
 
     const onQuestionComplete = () => {
-        navigation.push('LeaderBoardScreen', {
+        navigation.navigate('LeaderBoardScreen', {
             lobbyId,
             isHost,
             isGameComplete: currentQuestionIndex + 1 >= totalQuestion,

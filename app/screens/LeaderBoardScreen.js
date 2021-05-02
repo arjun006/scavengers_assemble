@@ -18,23 +18,26 @@ export default function LeaderBoardScreen({ route, navigation }) {
     ['Austin', 234],
   ];
 
-  useEffect(() => {
-    if (!isHost) {
-      var debRef = db.ref(`${lobbyId}/currentQuestion`);
 
-      debRef.on('value', (snapshot) => {
-        const dbValue = snapshot.val();
+  // const handleNextQuestion = () => {
+  //   if (isGameComplete) {
+  //     const dbRef = firebase.database().ref(`${lobbyId}`);
+  //     dbRef.remove();
+  //     navigation.navigate('Home');
+  //   }
+  //   else {
 
-        navigation.navigate('Question', {
-          lobbyId,
-          isHost,
-          currentQuestionIndex: dbValue
-        });
-      });
-    }
-  }, []);
+  //     //Increment database questionIndexCount
+  //     let dbRef = db.ref(`${lobbyId}/`);
 
-  const handleNextQuestion = () => {
+  //     //Increment questionIndex
+  //     dbRef.update({
+  //       currentQuestion: currentQuestionIndex
+  //     });
+  //   }
+  // };
+
+  const onTimerComplete = () => {
     if (isGameComplete) {
       const dbRef = firebase.database().ref(`${lobbyId}`);
       dbRef.remove();
@@ -42,21 +45,40 @@ export default function LeaderBoardScreen({ route, navigation }) {
     }
     else {
 
-      //Increment database questionIndexCount
-      let dbRef = db.ref(`${lobbyId}/`);
-
-      //Increment questionIndex
-      dbRef.update({
-        currentQuestion: currentQuestionIndex
-      });
-
-      navigation.navigate('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+      if (isHost) {
+        navigation.navigate('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+      }
+      else {
+        navigation.push('Question', {
+          lobbyId,
+          currentQuestionIndex,
+          isHost
+        });
+      }
     }
-
   };
 
   return (
     <View style={GlobalStyles.background}>
+      <View style={styles.timer}>
+        <CountdownCircleTimer
+          size={70}
+          isPlaying={isPlaying}
+          duration={5}
+          colors={[
+            ["#00FF00", 0.83],
+            ["#FF8C00", 0.17],
+          ]}
+          onComplete={onTimerComplete}
+        >
+          {({ remainingTime, animatedColor }) => (
+            <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
+              {remainingTime}
+            </Animated.Text>
+          )}
+        </CountdownCircleTimer>
+      </View>
+
       <Text style={GlobalStyles.title}>Leaderboard</Text>
 
       <View style={LBoardStyles.leaderboardContainer}>
@@ -70,7 +92,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         }
       </View>
 
-      {!isHost ?
+      {/* {!isHost ?
         <View>
           <Text style={LBoardStyles.title}>Waiting for host to start next hunt </Text>
           <ActivityIndicator size="large" color={colours.black} style={LBoardStyles.loader} />
@@ -86,7 +108,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-      }
+      } */}
     </View>
   );
 }
@@ -117,5 +139,13 @@ const LBoardStyles = StyleSheet.create({
   },
   loader: {
     marginTop: 50
-  }
+  },
+  timer: {
+    height: "7%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    width: "100%",
+    padding: 10,
+  },
 });
