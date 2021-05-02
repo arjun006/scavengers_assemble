@@ -16,12 +16,12 @@ import * as firebase from "firebase";
 export default function HostQuestionScreen({ route, navigation }) {
     const [isPlaying, setIsPlaying] = useState(true);
     const [currentObject, setCurrentObject] = useState('');
-    const [questionIndex, setQuestionIndex] = useState(0);
     const [totalQuestion, setTotalQuestion] = useState(0);
     const [submission, setSubmission] = useState(0);
 
-    const { lobbyId, isHost } = route.params;
+    const { lobbyId, isHost, currentQuestionIndex } = route.params;
     const db = firebase.database();
+
 
     useEffect(() => {
         let dbRef = db.ref();
@@ -29,11 +29,10 @@ export default function HostQuestionScreen({ route, navigation }) {
         //Get Data
         dbRef.child(`/${lobbyId}`).get().then((snapshot) => {
             if (snapshot.exists()) {
-                const { currentQuestion, totalQuestion, Question } = snapshot.val();
+                const { totalQuestion, Question } = snapshot.val();
 
-                const { object } = Question[currentQuestion];
+                const { object } = Question[currentQuestionIndex];
 
-                setQuestionIndex(currentQuestion);
                 setCurrentObject(object);
                 setTotalQuestion(totalQuestion);
             }
@@ -41,19 +40,21 @@ export default function HostQuestionScreen({ route, navigation }) {
             console.error(error);
         });
 
-        let ref = db.ref(`${lobbyId}/Question/${questionIndex}`);
+        let ref = db.ref(`${lobbyId}/Question/`);
 
         ref.on('value', (snapshot) => {
 
             if (snapshot.exists()) {
-                const { submission } = snapshot.val();
-
+                const data = snapshot.val();
+                // console.log(data);
+                const { submission } = data[currentQuestionIndex];
                 setSubmission(submission);
             }
             else {
                 console.log("No Data");
             }
         });
+
     }, []);
 
     const onQuestionComplete = () => {
@@ -61,13 +62,14 @@ export default function HostQuestionScreen({ route, navigation }) {
 
         //Increment questionIndex
         dbRef.update({
-            currentQuestion: questionIndex + 1
+            currentQuestion: currentQuestionIndex + 1
         });
 
         navigation.push('LeaderBoardScreen', {
             lobbyId,
             isHost,
-            isGameComplete: questionIndex + 1 >= totalQuestion
+            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+            currentQuestionIndex: currentQuestionIndex + 1
         });
     };
 

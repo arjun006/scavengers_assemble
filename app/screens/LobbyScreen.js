@@ -45,7 +45,8 @@ export default LobbyScreen = ({ route, navigation }) => {
 
         navigation.push('HostQuestion', {
             lobbyId,
-            isHost
+            isHost,
+            currentQuestionIndex: 0
         });
     };
 
