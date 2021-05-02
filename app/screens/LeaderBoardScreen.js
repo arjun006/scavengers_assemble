@@ -19,6 +19,16 @@ export default function LeaderBoardScreen({ route, navigation }) {
     //Get player score
     let dbRef = db.ref();
 
+
+    db.ref(`${lobbyId}/score/${id}/`).set({
+      name,
+      score
+    });
+
+    setTimeout(() => {
+
+    }, 1000);
+
     //Get Data
     dbRef.child(`/${lobbyId}/score/`).get().then((snapshot) => {
 

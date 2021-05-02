@@ -82,32 +82,23 @@ export default function QuestionScreen({ route, navigation }) {
 
   };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    db.ref(`${lobbyId}/score/${id}/`).set({
-      name,
-      score: currentUserScore
-    });
 
-  }, [currentUserScore]);
+  // }, [currentUserScore]);
 
   const handleTimerComplete = () => {
-    setTimeout(
-      function () {
-        navigation.push("LeaderBoardScreen", {
-          currentQuestionIndex: currentQuestionIndex + 1,
-          isHost,
-          lobbyId,
-          isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-          playerCount,
-          score: currentUserScore,
-          id,
-          name
-        });
-      }
-        .bind(this),
-      1000
-    );
+
+    navigation.push("LeaderBoardScreen", {
+      currentQuestionIndex: currentQuestionIndex + 1,
+      isHost,
+      lobbyId,
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+      playerCount,
+      score: currentUserScore,
+      id,
+      name
+    });
 
     //Navigate to leaderboard
 
