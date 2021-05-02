@@ -30,20 +30,21 @@ export default function QuestionScreen({ route, navigation }) {
   const db = firebase.database();
 
   const { currentQuestionIndex, isHost, lobbyId } = route.params;
-
+  let g_results = [];
   const takePicture = async () => {
     if (cam.current) {
       const options = { quality: 1, base64: true, skipProcessing: false };
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
       if (source) {
-        callGoogleVIsionApi(source).then(data => {
-          console.log(data);
-        }).catch(err => console.log(err));
+        callGoogleVIsionApi(source).then((data) => {
+          const labels = data.responses[0].labelAnnotations;
+          labels.forEach((label) => g_results.push(label.description));
+          console.log(g_results);
+        });
       }
     }
   };
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -84,7 +85,7 @@ export default function QuestionScreen({ route, navigation }) {
       currentQuestionIndex: currentQuestionIndex + 1,
       isHost,
       lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
     });
   };
 
