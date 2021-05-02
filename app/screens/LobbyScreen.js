@@ -38,6 +38,8 @@ export default LobbyScreen = ({ route, navigation }) => {
             }
         });
 
+        return () => { debRef.off(); };
+
     }, []);
 
     const startGame = () => {

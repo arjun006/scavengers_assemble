@@ -27,7 +27,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
       if (snapshot.exists()) {
         const players = snapshot.val();
 
-        for (userId in players) {
+        for (let userId in players) {
           const { name, score } = players[userId];
           scores.push([name, score]);
         }
