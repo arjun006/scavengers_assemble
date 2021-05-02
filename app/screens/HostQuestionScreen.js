@@ -50,21 +50,21 @@ export default function HostQuestionScreen({ route, navigation }) {
             console.error(error);
         });
 
-        let ref = db.ref(`${lobbyId}/Question/`);
+        // let ref = db.ref(`${lobbyId}/Question/`);
 
-        ref.on('value', (snapshot) => {
+        // ref.on('value', (snapshot) => {
 
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                // console.log(data);
-                const { submission } = data[currentQuestionIndex];
-                setTotalSubmission(totalSubmission);
+        //     if (snapshot.exists()) {
+        //         const data = snapshot.val();
+        //         // console.log(data);
+        //         const { submission } = data[currentQuestionIndex];
+        //         setTotalSubmission(totalSubmission);
 
-                if (submission === playerCount) {
-                    onQuestionComplete();
-                }
-            }
-        });
+        //         if (submission === playerCount) {
+        //             onQuestionComplete();
+        //         }
+        //     }
+        // });
 
     }, []);
 

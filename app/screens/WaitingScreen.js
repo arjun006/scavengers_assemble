@@ -28,18 +28,19 @@ export default function WaitingScreen({ route, navigation }) {
 
         debRef.on('value', (snapshot) => {
 
-            const { gameStarted, score } = snapshot.val();
-            const playerCount = Object.keys(score).length;
+            if (snapshot.exists()) {
+                const { gameStarted, score } = snapshot.val();
+                const playerCount = Object.keys(score).length;
 
-            if (gameStarted) {
-                navigation.navigate('Question', {
-                    currentQuestionIndex: 0,
-                    isHost: false,
-                    lobbyId,
-                    playerCount
-                });
+                if (gameStarted) {
+                    navigation.navigate('Question', {
+                        currentQuestionIndex: 0,
+                        isHost: false,
+                        lobbyId,
+                        playerCount
+                    });
+                }
             }
-
         });
 
 

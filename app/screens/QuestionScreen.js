@@ -97,22 +97,19 @@ export default function QuestionScreen({ route, navigation }) {
         console.error(error);
       });
 
-    debRef = db.ref(`${lobbyId}/Question/`);
+    // debRef = db.ref(`${lobbyId}/Question/`);
 
-    debRef.on('value', (snapshot) => {
+    // debRef.on('value', (snapshot) => {
 
-      if (snapshot.exists()) {
+    //   if (snapshot.exists()) {
 
-        const allQuestions = snapshot.val();
+    //     const allQuestions = snapshot.val();
 
-        const { submission } = allQuestions[currentQuestionIndex];
+    //     const { submission } = allQuestions[currentQuestionIndex];
 
-        if (submission === playerCount) {
-          handleTimerComplete();
-        }
-      }
+    //   }
 
-    });
+    // });
 
   }, []);
 
