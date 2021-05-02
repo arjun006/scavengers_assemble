@@ -1,5 +1,5 @@
 export default (limit) => {
-    const objects = ['Keyboard', 'Chair', 'Lamp', 'Book', 'Laptop', 'Window', 'Spoon', 'Fork', 'TV'];
+    const objects = ['Keyboard', 'Chair', 'Laptop'];
     let result = {};
 
     let count = 0;
