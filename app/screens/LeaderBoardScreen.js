@@ -53,7 +53,8 @@ export default function LeaderBoardScreen({ route, navigation }) {
         navigation.push('Question', {
           lobbyId,
           currentQuestionIndex,
-          isHost
+          isHost,
+          isGameComplete
         });
       }
     }
