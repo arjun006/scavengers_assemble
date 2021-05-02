@@ -40,11 +40,24 @@ export default function QuestionScreen({ route, navigation }) {
         callGoogleVIsionApi(source).then((data) => {
           const labels = data.responses[0].labelAnnotations;
           labels.forEach((label) => g_results.push(label.description));
+          validatePicture();
           console.log(g_results);
         });
       }
     }
   };
+  const validatePicture = () => {
+    g_results.map((obj)=> {
+      if(obj.toLowerCase().includes(currentObject.toLowerCase())){
+        console.log(obj + " " + currentObject);
+        setAnswer(true);
+      }
+    })
+    
+  }
+  // useEffect(()=>{
+  //   console.log(answer);  
+  // },[answer]);
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
