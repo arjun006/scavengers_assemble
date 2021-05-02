@@ -92,7 +92,7 @@ export default function QuestionScreen({ route, navigation }) {
 
     //Get Data
     dbRef
-      .child(`/${lobbyId}`)
+      .child(`${lobbyId}/`)
       .get()
       .then((snapshot) => {
         if (snapshot.exists()) {
