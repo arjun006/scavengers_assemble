@@ -29,7 +29,7 @@ export default function QuestionScreen({ route, navigation }) {
   const cam = useRef();
   const db = firebase.database();
 
-  const { currentQuestionIndex, isHost, lobbyId } = route.params();
+  const { currentQuestionIndex, isHost, lobbyId } = route.params;
 
   const takePicture = async () => {
     if (cam.current) {
@@ -76,9 +76,18 @@ export default function QuestionScreen({ route, navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  if (complete) {
-    goToLeaderboard();
-  }
+
+  const handleTimerComplete = () => {
+
+    //Navigate to leaderboard
+    navigation.push('LeaderBoardScreen', {
+      currentQuestionIndex: currentQuestionIndex + 1,
+      isHost,
+      lobbyId
+    });
+
+  };
+
   return (
     <View style={styles.background}>
       <View style={styles.timer}>
@@ -90,7 +99,7 @@ export default function QuestionScreen({ route, navigation }) {
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
           ]}
-          onComplete={() => setComplete(true)}
+          onComplete={handleTimerComplete}
         >
           {({ remainingTime, animatedColor }) => (
             <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>

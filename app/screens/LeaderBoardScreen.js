@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import GlobalStyles from './../config/GlobalStyles';
 import colours from '../config/colours';
@@ -18,14 +18,41 @@ export default function LeaderBoardScreen({ route, navigation }) {
     ['Austin', 234],
   ];
 
+  useEffect(() => {
+    if (!isHost) {
+      var debRef = db.ref(`${lobbyId}/currentQuestion`);
+
+      debRef.on('value', (snapshot) => {
+        const dbValue = snapshot.val();
+
+        navigation.navigate('Question', {
+          lobbyId,
+          isHost,
+          currentQuestionIndex: dbValue
+        });
+      });
+    }
+  }, []);
+
   const handleNextQuestion = () => {
     if (isGameComplete) {
       const dbRef = firebase.database().ref(`${lobbyId}`);
       dbRef.remove();
-      navigation.push('Home');
+      navigation.navigate('Home');
     }
-    else
-      navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+    else {
+
+      //Increment database questionIndexCount
+      let dbRef = db.ref(`${lobbyId}/`);
+
+      //Increment questionIndex
+      dbRef.update({
+        currentQuestion: currentQuestionIndex
+      });
+
+      navigation.navigate('HostQuestion', { lobbyId, isHost, isGameComplete, currentQuestionIndex });
+    }
+
   };
 
   return (

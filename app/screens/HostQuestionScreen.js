@@ -57,13 +57,6 @@ export default function HostQuestionScreen({ route, navigation }) {
     }, []);
 
     const onQuestionComplete = () => {
-        let dbRef = db.ref(`${lobbyId}/`);
-
-        //Increment questionIndex
-        dbRef.update({
-            currentQuestion: currentQuestionIndex + 1
-        });
-
         navigation.push('LeaderBoardScreen', {
             lobbyId,
             isHost,
