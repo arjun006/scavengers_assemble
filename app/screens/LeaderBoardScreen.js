@@ -6,7 +6,7 @@ import colours from '../config/colours';
 import { color } from "react-native-reanimated";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function LeaderBoardScreen() {
+export default function LeaderBoardScreen({route, navigation}) {
   const [isHost] = useState(false);
   const scores = [
     ['John', 234],
