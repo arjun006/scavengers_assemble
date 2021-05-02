@@ -18,6 +18,8 @@ import { Entypo } from "@expo/vector-icons";
 import * as firebase from "firebase";
 
 export default function QuestionScreen({ route, navigation }) {
+  const { name, id, score, currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
+
   const [hasPermission, setHasPermission] = useState(null); //Permission State for Camera usage
   const [type, setType] = useState(Camera.Constants.Type.back); //Camera State front and back camera
   const [correct, setCorrect] = useState(false); //Turn Camera on and off
@@ -26,12 +28,11 @@ export default function QuestionScreen({ route, navigation }) {
   const [complete, setComplete] = useState(false); //Coundown finish state
   const [currentObject, setCurrentObject] = useState(""); //Object Name
   const [totalQuestion, setTotalQuestion] = useState(0); // Total questions
-  const [score, setScore] = useState(0);
+  const [currentUserScore, setCurrentUserScore] = useState(score ? score : 0);
   const [time, setTime] = useState(0);
   const cam = useRef();
   const db = firebase.database();
 
-  const { currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
   //start timer here
   let start = Date.now();
   let end;
@@ -52,7 +53,7 @@ export default function QuestionScreen({ route, navigation }) {
       }
     }
   };
-  
+
   const validatePicture = () => {
     let checker = false;
     g_results.map((obj) => {
@@ -60,9 +61,15 @@ export default function QuestionScreen({ route, navigation }) {
         console.log(obj + " " + currentObject);
         checker = true;
         setCorrect(true);
-        end = Date.now()
-        let scoreLost = 500 - (Math.floor((end-start)/1000) * 10);
-        setScore(scoreLost)
+        end = Date.now();
+        let newScore = currentUserScore + (Math.floor((end - start) / 1000) * 7);
+        setCurrentUserScore(newScore);
+
+        db.ref(`${lobbyId}/score/${id}`).set({
+          name,
+          score: newScore
+        });
+
       }
     });
     setAnswer(checker);
@@ -86,6 +93,9 @@ export default function QuestionScreen({ route, navigation }) {
       lobbyId,
       isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
       playerCount,
+      score: currentUserScore,
+      id,
+      name
     });
   };
   // useEffect(()=>{
@@ -185,8 +195,8 @@ export default function QuestionScreen({ route, navigation }) {
         </View>
       </View>
       <View style={styles.score}>
-        <Text style={styles.score_name}>John</Text>
-        <Text style={styles.score_text}>{score}</Text>
+        <Text style={styles.score_name}>{name}</Text>
+        <Text style={styles.score_text}>{currentUserScore}</Text>
       </View>
     </View>
   );
