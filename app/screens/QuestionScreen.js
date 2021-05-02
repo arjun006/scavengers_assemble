@@ -41,9 +41,6 @@ export default function QuestionScreen({ route, navigation }) {
       }
     }
   };
-  const goToLeaderboard = () => {
-    navigation.navigate("LeaderBoardScreen");
-  };
 
   useEffect(() => {
     (async () => {
@@ -80,7 +77,7 @@ export default function QuestionScreen({ route, navigation }) {
   const handleTimerComplete = () => {
 
     //Navigate to leaderboard
-    navigation.push('LeaderBoardScreen', {
+    navigation.navigate('LeaderBoardScreen', {
       currentQuestionIndex: currentQuestionIndex + 1,
       isHost,
       lobbyId
