@@ -19,7 +19,7 @@ export default function HostQuestionScreen({ route, navigation }) {
     const [totalQuestion, setTotalQuestion] = useState(0);
     const [submission, setSubmission] = useState(0);
 
-    const { lobbyId, isHost, currentQuestionIndex } = route.params;
+    const { lobbyId, isHost, currentQuestionIndex, playerCount } = route.params;
     const db = firebase.database();
 
     useEffect(() => {
@@ -48,6 +48,10 @@ export default function HostQuestionScreen({ route, navigation }) {
                 // console.log(data);
                 const { submission } = data[currentQuestionIndex];
                 setSubmission(submission);
+
+                if (submission === playerCount) {
+                    onQuestionComplete();
+                }
             }
             else {
                 console.log("No Data");
@@ -55,6 +59,7 @@ export default function HostQuestionScreen({ route, navigation }) {
         });
 
     }, []);
+
 
     const onQuestionComplete = () => {
         navigation.push('LeaderBoardScreen', {
@@ -71,7 +76,7 @@ export default function HostQuestionScreen({ route, navigation }) {
                 <CountdownCircleTimer
                     size={70}
                     isPlaying={isPlaying}
-                    duration={10}
+                    duration={20}
                     colors={[
                         ["#00FF00", 0.83],
                         ["#FF8C00", 0.17],
