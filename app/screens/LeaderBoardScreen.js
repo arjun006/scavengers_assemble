@@ -12,7 +12,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
   const [scoreBoard, setScoreBoard] = useState([]);
 
-  const { lobbyId, isHost, isGameComplete, currentQuestionIndex, playerCount } = route.params;
+  const { lobbyId, name, id, score, isHost, isGameComplete, currentQuestionIndex, playerCount } = route.params;
   const db = firebase.database();
 
   useEffect(() => {
@@ -66,7 +66,10 @@ export default function LeaderBoardScreen({ route, navigation }) {
           currentQuestionIndex,
           isHost,
           isGameComplete,
-          playerCount
+          playerCount,
+          score,
+          id,
+          name
         });
       }
     }

@@ -37,7 +37,9 @@ export default function WaitingScreen({ route, navigation }) {
                         currentQuestionIndex: 0,
                         isHost: false,
                         lobbyId,
-                        playerCount
+                        playerCount,
+                        name,
+                        id
                     });
                 }
             }
