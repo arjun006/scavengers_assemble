@@ -1,3 +1,4 @@
+console.log(process.env.GOOGLE_API_KEY);
 export default callGoogleVIsionApi = async (base64) => {
   let googleVisionRes = await fetch(
     "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
