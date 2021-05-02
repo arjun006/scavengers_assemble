@@ -24,17 +24,19 @@ export default function WaitingScreen({ route, navigation }) {
     };
 
     useEffect(() => {
-        var debRef = db.ref(`${lobbyId}/gameStarted`);
-        BackHandler.addEventListener("hardwareBackPress", backAction);
+        var debRef = db.ref(`${lobbyId}/`);
+
         debRef.on('value', (snapshot) => {
 
-            const gameStarted = snapshot.val();
+            const { gameStarted, score } = snapshot.val();
+            const playerCount = Object.keys(score).length;
 
             if (gameStarted) {
                 navigation.navigate('Question', {
                     currentQuestionIndex: 0,
                     isHost: false,
-                    lobbyId
+                    lobbyId,
+                    playerCount
                 });
             }
 

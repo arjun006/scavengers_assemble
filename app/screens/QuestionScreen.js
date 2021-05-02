@@ -29,7 +29,9 @@ export default function QuestionScreen({ route, navigation }) {
   const cam = useRef();
   const db = firebase.database();
 
-  const { currentQuestionIndex, isHost, lobbyId } = route.params;
+  const { currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
+
+
   let g_results = [];
   const takePicture = async () => {
     if (cam.current) {
@@ -70,6 +72,24 @@ export default function QuestionScreen({ route, navigation }) {
       .catch((error) => {
         console.error(error);
       });
+
+    debRef = db.ref(`${lobbyId}/Question`);
+
+    debRef.on('value', (snapshot) => {
+
+      if (snapshot.exists()) {
+
+        const allQuestions = snapshot.val();
+
+        const { submission } = allQuestions[currentQuestionIndex];
+
+        if (submission === playerCount) {
+          handleTimerComplete();
+        }
+      }
+
+    });
+
   }, []);
 
   if (hasPermission === null) {
