@@ -22,7 +22,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
     db.ref(`${lobbyId}/score/${id}/`).set({
       name,
-      score: currentUserScore
+      score
     });
 
     setTimeout(() => {
