@@ -28,7 +28,8 @@ export default function HostQuestionScreen({ route, navigation }) {
             lobbyId,
             isHost,
             isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-            currentQuestionIndex: currentQuestionIndex + 1
+            currentQuestionIndex: currentQuestionIndex + 1,
+            playerCount
         });
     };
 
