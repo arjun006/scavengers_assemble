@@ -12,12 +12,12 @@ import GlobalStyles from "./../config/GlobalStyles";
 // import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { Vision} from "@google-cloud/vision";
+// import { Vision} from "@google-cloud/vision";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
 import * as ImagePicker from 'expo-image-picker';
 
-export default function QuestionScreen() {
+export default function QuestionScreen(navigation) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [correct, setCorrect] = useState(false);
@@ -34,7 +34,7 @@ export default function QuestionScreen() {
         setPicture(source);
         if (source) {
           cam.current.resumePreview();
-          //console.log(source);
+
         }
       }
       setCorrect((correct) => true);
@@ -76,6 +76,10 @@ export default function QuestionScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  //Handle Timeout
+  const handleTimeout = () => {
+        navigation.navigate('LeaderBoard');
+  }
   //GOOGLE_CLOUD_VISION_API_KEY: "AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
   return (
     <View style={styles.background}>
@@ -83,12 +87,12 @@ export default function QuestionScreen() {
         <CountdownCircleTimer
           size={70}
           isPlaying={isPlaying}
-          duration={60}
+          duration={10}
           colors={[
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
           ]}
-          onComplete={(prev) => !prev}
+          onComplete={handleTimeout,(prev) => !prev, console.log("timer done")}
         >
           {({ remainingTime, animatedColor }) => (
             <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
