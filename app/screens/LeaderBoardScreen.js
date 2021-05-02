@@ -20,7 +20,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
     let dbRef = db.ref();
 
     //Get Data
-    dbRef.child(`/${lobbyId}/score`).get().then((snapshot) => {
+    dbRef.child(`/${lobbyId}/score/`).get().then((snapshot) => {
 
       let scores = [];
 

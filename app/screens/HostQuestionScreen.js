@@ -37,7 +37,7 @@ export default function HostQuestionScreen({ route, navigation }) {
         let dbRef = db.ref();
 
         //Get Data
-        dbRef.child(`/${lobbyId}`).get().then((snapshot) => {
+        dbRef.child(`${lobbyId}/`).get().then((snapshot) => {
             if (snapshot.exists()) {
                 const { totalQuestion, Question } = snapshot.val();
 
