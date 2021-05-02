@@ -49,14 +49,24 @@ export default function QuestionScreen({ route, navigation }) {
     }
   };
   const validatePicture = () => {
-    g_results.map((obj)=> {
-      if(obj.toLowerCase().includes(currentObject.toLowerCase())){
+    g_results.map((obj) => {
+      if (obj.toLowerCase().includes(currentObject.toLowerCase())) {
         console.log(obj + " " + currentObject);
         setAnswer(true);
       }
-    })
-    
-  }
+    });
+
+  };
+
+  const handleTimerComplete = () => {
+    //Navigate to leaderboard
+    navigation.push("LeaderBoardScreen", {
+      currentQuestionIndex: currentQuestionIndex + 1,
+      isHost,
+      lobbyId,
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+    });
+  };
   // useEffect(()=>{
   //   console.log(answer);  
   // },[answer]);
@@ -86,7 +96,7 @@ export default function QuestionScreen({ route, navigation }) {
         console.error(error);
       });
 
-    debRef = db.ref(`${lobbyId}/Question`);
+    debRef = db.ref(`${lobbyId}/Question/`);
 
     debRef.on('value', (snapshot) => {
 
@@ -111,16 +121,6 @@ export default function QuestionScreen({ route, navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  const handleTimerComplete = () => {
-    //Navigate to leaderboard
-    navigation.push("LeaderBoardScreen", {
-      currentQuestionIndex: currentQuestionIndex + 1,
-      isHost,
-      lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-    });
-  };
 
   return (
     <View style={styles.background}>
