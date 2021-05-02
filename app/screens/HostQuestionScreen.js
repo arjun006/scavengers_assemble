@@ -17,10 +17,21 @@ export default function HostQuestionScreen({ route, navigation }) {
     const [isPlaying, setIsPlaying] = useState(true);
     const [currentObject, setCurrentObject] = useState('');
     const [totalQuestion, setTotalQuestion] = useState(0);
-    const [submission, setSubmission] = useState(0);
+    const [totalSubmission, setTotalSubmission] = useState(0);
 
     const { lobbyId, isHost, currentQuestionIndex, playerCount } = route.params;
     const db = firebase.database();
+
+
+    const onQuestionComplete = () => {
+        navigation.push('LeaderBoardScreen', {
+            lobbyId,
+            isHost,
+            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+            currentQuestionIndex: currentQuestionIndex + 1,
+            playerCount
+        });
+    };
 
     useEffect(() => {
         let dbRef = db.ref();
@@ -47,28 +58,15 @@ export default function HostQuestionScreen({ route, navigation }) {
                 const data = snapshot.val();
                 // console.log(data);
                 const { submission } = data[currentQuestionIndex];
-                setSubmission(submission);
+                setTotalSubmission(totalSubmission);
 
                 if (submission === playerCount) {
                     onQuestionComplete();
                 }
             }
-            else {
-                console.log("No Data");
-            }
         });
 
     }, []);
-
-
-    const onQuestionComplete = () => {
-        navigation.push('LeaderBoardScreen', {
-            lobbyId,
-            isHost,
-            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-            currentQuestionIndex: currentQuestionIndex + 1
-        });
-    };
 
     return (
         <View style={styles.background}>
@@ -94,7 +92,7 @@ export default function HostQuestionScreen({ route, navigation }) {
             <Text style={styles.title}>Scavenger Object</Text>
             <Text style={styles.objectName}>{currentObject}</Text>
             <Text style={styles.tSubmissions}>Total Submissions</Text>
-            <Text style={styles.count}>{submission}</Text>
+            <Text style={styles.count}>{totalSubmission}</Text>
         </View>
     );
 }

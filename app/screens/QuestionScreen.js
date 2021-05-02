@@ -29,7 +29,9 @@ export default function QuestionScreen({ route, navigation }) {
   const cam = useRef();
   const db = firebase.database();
 
-  const { currentQuestionIndex, isHost, lobbyId } = route.params;
+  const { currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
+
+
   let g_results = [];
   const takePicture = async () => {
     if (cam.current) {
@@ -48,8 +50,8 @@ export default function QuestionScreen({ route, navigation }) {
     }
   };
   const validatePicture = () => {
-    g_results.map((obj)=> {
-      if(obj.toLowerCase().includes(currentObject.toLowerCase())){
+    g_results.map((obj) => {
+      if (obj.toLowerCase().includes(currentObject.toLowerCase())) {
         console.log(obj + " " + currentObject);
         setAnswer(true);
       }
@@ -64,6 +66,20 @@ export default function QuestionScreen({ route, navigation }) {
         });
       }
   },[answer]);
+
+  const handleTimerComplete = () => {
+    //Navigate to leaderboard
+    navigation.push("LeaderBoardScreen", {
+      currentQuestionIndex: currentQuestionIndex + 1,
+      isHost,
+      lobbyId,
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+      playerCount
+    });
+  };
+  // useEffect(()=>{
+  //   console.log(answer);  
+  // },[answer]);
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -89,6 +105,24 @@ export default function QuestionScreen({ route, navigation }) {
       .catch((error) => {
         console.error(error);
       });
+
+    debRef = db.ref(`${lobbyId}/Question/`);
+
+    debRef.on('value', (snapshot) => {
+
+      if (snapshot.exists()) {
+
+        const allQuestions = snapshot.val();
+
+        const { submission } = allQuestions[currentQuestionIndex];
+
+        if (submission === playerCount) {
+          handleTimerComplete();
+        }
+      }
+
+    });
+
   }, []);
 
   if (hasPermission === null) {
@@ -97,16 +131,6 @@ export default function QuestionScreen({ route, navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  const handleTimerComplete = () => {
-    //Navigate to leaderboard
-    navigation.push("LeaderBoardScreen", {
-      currentQuestionIndex: currentQuestionIndex + 1,
-      isHost,
-      lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-    });
-  };
 
   return (
     <View style={styles.background}>
