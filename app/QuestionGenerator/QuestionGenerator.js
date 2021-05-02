@@ -7,7 +7,7 @@ export default (limit) => {
     while (count < limit) {
         let randomIndex = Math.floor(Math.random() * objects.length);
 
-        while (randomIndex in result)
+        while (result[randomIndex] !== "undefined")
             randomIndex = Math.floor(Math.random() * objects.length);
 
         result[count] = {

@@ -77,10 +77,11 @@ export default function QuestionScreen({ route, navigation }) {
   const handleTimerComplete = () => {
 
     //Navigate to leaderboard
-    navigation.navigate('LeaderBoardScreen', {
+    navigation.push('LeaderBoardScreen', {
       currentQuestionIndex: currentQuestionIndex + 1,
       isHost,
-      lobbyId
+      lobbyId,
+      isGameComplete: currentQuestionIndex >= totalQuestion
     });
 
   };
