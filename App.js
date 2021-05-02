@@ -7,6 +7,8 @@ import LobbyScreen from "./app/screens/LobbyScreen";
 import LeaderBoardScreen from "./app/screens/LeaderBoardScreen";
 import WaitingScreen from "./app/screens/WaitingScreen";
 import QuestionScreen from "./app/screens/QuestionScreen";
+import HostQuestionScreen from "./app/screens/HostQuestionScreen";
+
 import { decode, encode } from "base-64";
 if (!global.btoa) {
   global.btoa = encode;
@@ -46,7 +48,7 @@ export default function App() {
           cardStyle: { backgroundColor: "#0000" },
         }}
       >
-        {/* <Stack.Screen name="Question" component={QuestionScreen} /> */}
+        <Stack.Screen name="HostQuestion" component={HostQuestionScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Question" component={QuestionScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
