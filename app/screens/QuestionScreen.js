@@ -17,13 +17,14 @@ import { Permissions } from "expo-permissions";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-export default function QuestionScreen() {
+export default function QuestionScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [correct, setCorrect] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [picture, setPicture] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const [complete, setComplete] = useState(false);
   const cam = useRef();
 
   const takePicture = async () => {
@@ -56,12 +57,12 @@ export default function QuestionScreen() {
         <CountdownCircleTimer
           size={70}
           isPlaying={isPlaying}
-          duration={60}
+          duration={10}
           colors={[
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
           ]}
-          onComplete={(prev) => !prev}
+          onComplete={setComplete(true)}
         >
           {({ remainingTime, animatedColor }) => (
             <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>

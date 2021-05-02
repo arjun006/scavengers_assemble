@@ -73,7 +73,6 @@ export default function HomeScreen({ navigation }) {
     //Genere Random Lobby ID
     setCode(0);
     let lobbyId = Math.floor(Math.random() * 97999) + 10000;
-
     const randomGeneratedQuestion = QuestionGenerator(5);
     //Else => Push it to DB
 
