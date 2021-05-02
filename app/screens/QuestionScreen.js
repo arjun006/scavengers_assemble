@@ -151,7 +151,7 @@ export default function QuestionScreen({ route, navigation }) {
           <CountdownCircleTimer
             size={70}
             isPlaying={isPlaying}
-            duration={10}
+            duration={20}
             colors={[
               ["#00FF00", 0.83],
               ["#FF8C00", 0.17],
