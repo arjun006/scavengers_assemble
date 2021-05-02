@@ -17,20 +17,24 @@ export default LobbyScreen = ({ route, navigation }) => {
     // const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
 
     useEffect(() => {
-        var debRef = db.ref(`${lobbyId}/score/`);
-        let players = [];
+        var debRef = db.ref(`${lobbyId}/score`);
 
         debRef.on('value', (snapshot) => {
-            const dbValue = snapshot.val();
 
-            for (let userId in dbValue) {
-                const userObject = dbValue[userId];
-                const { name } = userObject;
-                players.push(name);
-            }
+            if (snapshot.exists()) {
+                const dbValue = snapshot.val();
 
-            if (players.length > 0)
+                let players = [];
+
+                for (let userId in dbValue) {
+                    const userObject = dbValue[userId];
+                    const { name } = userObject;
+                    players.push(name);
+                }
+
+                console.log(players);
                 setPlayerList(players);
+            }
         });
 
     }, []);
@@ -57,7 +61,7 @@ export default LobbyScreen = ({ route, navigation }) => {
 
             <View style={LobbyStyles.playerContainer}>
                 {
-                    playerList && playerList.map((player, index) => (
+                    playerList.length > 0 && playerList.map((player, index) => (
                         <Text key={index} style={LobbyStyles.player}>{player}</Text>
                     ))
                 }
