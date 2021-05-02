@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 17,
     color: colours.white,
   },
   cameraview: {
