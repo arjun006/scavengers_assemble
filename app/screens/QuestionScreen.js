@@ -60,6 +60,17 @@ export default function QuestionScreen({ route, navigation }) {
   // useEffect(()=>{
   //   console.log(answer);  
   // },[answer]);
+
+  const handleTimerComplete = () => {
+    //Navigate to leaderboard
+    navigation.push("LeaderBoardScreen", {
+      currentQuestionIndex: currentQuestionIndex + 1,
+      isHost,
+      lobbyId,
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -86,7 +97,7 @@ export default function QuestionScreen({ route, navigation }) {
         console.error(error);
       });
 
-    debRef = db.ref(`${lobbyId}/Question`);
+    debRef = db.ref(`${lobbyId}/Question/`);
 
     debRef.on('value', (snapshot) => {
 
@@ -112,15 +123,6 @@ export default function QuestionScreen({ route, navigation }) {
     return <Text>No access to camera</Text>;
   }
 
-  const handleTimerComplete = () => {
-    //Navigate to leaderboard
-    navigation.push("LeaderBoardScreen", {
-      currentQuestionIndex: currentQuestionIndex + 1,
-      isHost,
-      lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-    });
-  };
 
   return (
     <View style={styles.background}>
