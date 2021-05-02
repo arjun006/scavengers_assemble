@@ -37,7 +37,9 @@ export default function QuestionScreen({ route, navigation }) {
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
       if (source) {
-        callGoogleVIsionApi(source);
+        callGoogleVIsionApi(source).then(data => {
+          console.log(data);
+        });
       }
     }
   };
@@ -81,7 +83,7 @@ export default function QuestionScreen({ route, navigation }) {
       currentQuestionIndex: currentQuestionIndex + 1,
       isHost,
       lobbyId,
-      isGameComplete: currentQuestionIndex >= totalQuestion
+      isGameComplete: currentQuestionIndex + 1 >= totalQuestion
     });
 
   };

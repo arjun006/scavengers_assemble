@@ -17,6 +17,8 @@ export default callGoogleVIsionApi = async (base64) => {
 
     await googleVisionRes.json()
         .then(googleVisionRes => {
-            console.log(googleVisionRes.responses[0]);
+            return googleVisionRes.responses[0];
         }).catch((error) => { });
+
+
 };
