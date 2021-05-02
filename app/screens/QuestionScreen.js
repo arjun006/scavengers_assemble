@@ -62,7 +62,7 @@ export default function QuestionScreen({ navigation }) {
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
           ]}
-          onComplete={setComplete(true)}
+          onComplete={()=>setComplete(true)}
         >
           {({ remainingTime, animatedColor }) => (
             <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
