@@ -5,7 +5,11 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
 
-export default function WaitingScreen (){
+export default function WaitingScreen({ route, navigation }) {
+    const { lobbyId, name } = route.params;
+
+    console.log(`User ${name} has entered Lobby ${lobbyId}`);
+
     return (
         <View style={GlobalStyles.background}>
 

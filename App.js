@@ -6,6 +6,7 @@ import HomeScreen from "./app/screens/HomeScreen";
 import LobbyScreen from "./app/screens/LobbyScreen";
 import LeaderBoardScreen from "./app/screens/LeaderBoardScreen";
 import WaitingScreen from "./app/screens/WaitingScreen";
+import QuestionScreen from "./app/screens/QuestionScreen";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
   global.btoa = encode;
@@ -13,9 +14,8 @@ if (!global.btoa) {
 if (!global.atob) {
   global.atob = decode;
 }
-
 import * as firebase from "firebase";
-import QuestionScreen from "./app/screens/QuestionScreen";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRTgDvOp21bQ3F4aY4QPdSjkFarshOSxY",
@@ -46,12 +46,11 @@ export default function App() {
           cardStyle: { backgroundColor: "#0000" },
         }}
       >
-        
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Question" component={QuestionScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />
         <Stack.Screen name="Waiting" component={WaitingScreen} />
-        <Stack.Screen name="Question" component={QuestionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
