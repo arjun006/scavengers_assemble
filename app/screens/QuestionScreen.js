@@ -12,7 +12,6 @@ import GlobalStyles from "./../config/GlobalStyles";
 // import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { Vision } from "@google-cloud/vision";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
 
@@ -26,10 +25,10 @@ export default function QuestionScreen() {
 
   const takePicture = async () => {
     if (cam.current) {
-      const options = { quality: 0.5, base64: true, skipProcessing: false };
+      const options = { quality: 1, base64: true, skipProcessing: false };
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
-      console.log(source);
+      //console.log(source);
       if (source) {
         // cam.current.resumePreview();
         // console.log(source);
@@ -50,15 +49,6 @@ export default function QuestionScreen() {
             },
             features: [
               { type: "LABEL_DETECTION", maxResults: 10 },
-              { type: "LANDMARK_DETECTION", maxResults: 5 },
-              { type: "FACE_DETECTION", maxResults: 5 },
-              { type: "LOGO_DETECTION", maxResults: 5 },
-              { type: "TEXT_DETECTION", maxResults: 5 },
-              { type: "DOCUMENT_TEXT_DETECTION", maxResults: 5 },
-              { type: "SAFE_SEARCH_DETECTION", maxResults: 5 },
-              { type: "IMAGE_PROPERTIES", maxResults: 5 },
-              { type: "CROP_HINTS", maxResults: 5 },
-              { type: "WEB_DETECTION", maxResults: 5 }
             ],
           }
         ]
