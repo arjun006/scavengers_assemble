@@ -31,7 +31,6 @@ export default function QuestionScreen({ route, navigation }) {
 
   const { currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
 
-
   let g_results = [];
   const takePicture = async () => {
     if (cam.current) {
@@ -43,29 +42,32 @@ export default function QuestionScreen({ route, navigation }) {
           const labels = data.responses[0].labelAnnotations;
           labels.forEach((label) => g_results.push(label.description));
           validatePicture();
-          
+
           //console.log(g_results);
         });
       }
     }
   };
   const validatePicture = () => {
+    let checker = false;
     g_results.map((obj) => {
       if (obj.toLowerCase().includes(currentObject.toLowerCase())) {
         console.log(obj + " " + currentObject);
-        setAnswer(true);
+        checker = true;
+        setCorrect(true);
       }
-    })
-  }
-//Increment 
-  useEffect(()=>{
-      if(answer){
-        let subs = db.ref(`${lobbyId}/Question/submission`).get();
-        db.ref(`${lobbyId}/Question`).set({
-          submission: subs+1
-        });
-      }
-  },[answer]);
+    });
+    setAnswer(checker);
+  };
+  //Increment
+  useEffect(() => {
+    if (answer) {
+      let subs = db.ref(`${lobbyId}/Question/submission`).get();
+      db.ref(`${lobbyId}/Question`).set({
+        submission: subs + 1,
+      });
+    }
+  }, [answer]);
 
   const handleTimerComplete = () => {
     //Navigate to leaderboard
@@ -74,11 +76,11 @@ export default function QuestionScreen({ route, navigation }) {
       isHost,
       lobbyId,
       isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-      playerCount
+      playerCount,
     });
   };
   // useEffect(()=>{
-  //   console.log(answer);  
+  //   console.log(answer);
   // },[answer]);
   useEffect(() => {
     (async () => {
@@ -119,7 +121,6 @@ export default function QuestionScreen({ route, navigation }) {
     //   }
 
     // });
-
   }, []);
 
   if (hasPermission === null) {
@@ -132,7 +133,9 @@ export default function QuestionScreen({ route, navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.topbar}>
-        <Text style={styles.subs}>{currentQuestionIndex + 1}/{totalQuestion}</Text>
+        <Text style={styles.subs}>
+          {currentQuestionIndex + 1}/{totalQuestion}
+        </Text>
         <View style={styles.timer}>
           <CountdownCircleTimer
             size={70}
@@ -202,12 +205,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   topbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingRight: 50,
     paddingLeft: 10,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   buttonText: {
     fontSize: 17,
