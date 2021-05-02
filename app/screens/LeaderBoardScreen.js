@@ -34,7 +34,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         }
 
         let keys = Object.keys(unorderedScore);
-        keys.sort(function (a, b) { return a - b; });
+        keys.sort(function (a, b) { return b - a; });
 
         keys.forEach(key => {
           orderedScore.push([unorderedScore[key], key]);
