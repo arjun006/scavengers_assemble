@@ -13,6 +13,7 @@ import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import { Camera } from "expo-camera";
+import { ImagePicker, Permissions } from "expo";
 
 export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -21,17 +22,26 @@ export default function QuestionScreen() {
   const [isPlaying, setIsPlaying] = useState(true);
   const cam = useRef();
 
+  //   const takePicture = async () => {
+  //     if (cam.current) {
+  //       const options = { quality: 0.5, base64: true, skipProcessing: false };
+  //       let photo = await cam.current.takePictureAsync(options);
+  //       const source = photo.uri;
+  //       console.log(source);
+  //       if (source) {
+  //         cam.current.resumePreview();
+  //         console.log(source);
+  //       }
+  //     }
+  //     setCorrect((correct) => true);
+  //   };
   const takePicture = async () => {
-    if (cam.current) {
-      const options = { quality: 0.5, base64: true, skipProcessing: false };
-      let photo = await cam.current.takePictureAsync(options);
-      const source = photo.uri;
-      if (source) {
-        cam.current.resumePreview();
-        console.log(source);
-      }
-    }
-    setCorrect((correct) => true);
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    this._handleImagePicked(pickerResult);
   };
   useEffect(() => {
     (async () => {
@@ -46,7 +56,7 @@ export default function QuestionScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
+  //GOOGLE_CLOUD_VISION_API_KEY: "AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
   return (
     <View style={styles.background}>
       <View style={styles.timer}>
@@ -74,7 +84,7 @@ export default function QuestionScreen() {
           <Camera
             ref={cam}
             style={{
-              
+              flex: 7,
               alignItems: "center",
               width: "80%",
               height: "80%",
@@ -82,17 +92,7 @@ export default function QuestionScreen() {
               flexDirection: "row",
             }}
             type={type}
-          >
-            <View
-              style={{
-                padding: 20,
-                flex: 1,
-                height: "28%",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            ></View>
-          </Camera>
+          />
         ) : null}
         <View style={styles.bottom}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
@@ -100,7 +100,7 @@ export default function QuestionScreen() {
           </TouchableOpacity>
         </View>
       </View>
-      <View>
+      <View style={styles.score}>
         <Text style={styles.score_name}>John</Text>
         <Text style={styles.score_text}>500</Text>
       </View>
