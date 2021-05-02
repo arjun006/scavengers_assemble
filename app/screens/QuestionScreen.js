@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 15,
     paddingHorizontal: 70,
-    marginTop: 20,
+    marginTop: 10,
   },
   topbar: {
     flexDirection: 'row',
