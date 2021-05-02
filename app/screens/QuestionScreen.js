@@ -250,14 +250,18 @@ const styles = StyleSheet.create({
   },
   score_text: {
     color: colours.black,
+    fontSize:20,
+    fontWeight:"bold",
     textAlign: "right",
-    marginRight: 12,
+    marginRight: 20,
     marginBottom: 8,
   },
   score_name: {
     color: colours.black,
+    fontSize:20,
+    fontWeight:"bold",
     textAlign: "left",
-    marginLeft: 12,
+    marginLeft: 20,
     marginBottom: 8,
   },
   subs: {
