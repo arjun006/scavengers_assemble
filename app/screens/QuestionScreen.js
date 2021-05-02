@@ -70,7 +70,6 @@ export default function QuestionScreen({ route, navigation }) {
           score: newScore
         });
 
-
       }
     });
     setAnswer(checker);

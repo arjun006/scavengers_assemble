@@ -110,7 +110,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder="     Display Name     "
+            placeholder="Display Name"
             onChangeText={(name) => {
               setName(name);
             }}
@@ -119,7 +119,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder="   Scavenger Code   "
+            placeholder="Scavenger Code"
             autoCapitalize="characters"
             onChangeText={(code) => {
               setCode(code);
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 20,
+    textAlign: "center",
   },
   roomButton: {
     backgroundColor: colours.black,
