@@ -62,10 +62,10 @@ export default function QuestionScreen({ route, navigation }) {
   //Increment
   useEffect(() => {
     if (answer) {
-      let subs = db.ref(`${lobbyId}/Question/submission`).get();
-      db.ref(`${lobbyId}/Question`).set({
-        submission: subs + 1,
-      });
+      const updates = {};
+      updates[`${lobbyId}/Question/${currentQuestionIndex}/submission`] = firebase.database.ServerValue.increment(1);
+
+      db.ref().update(updates);
     }
   }, [answer]);
 
