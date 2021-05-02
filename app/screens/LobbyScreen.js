@@ -17,7 +17,7 @@ export default LobbyScreen = ({ route, navigation }) => {
     // const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
 
     useEffect(() => {
-        var debRef = db.ref(`${lobbyId}/score`);
+        var debRef = db.ref(`${lobbyId}/score/`);
         let players = [];
 
         debRef.on('value', (snapshot) => {
@@ -33,7 +33,6 @@ export default LobbyScreen = ({ route, navigation }) => {
                 setPlayerList(players);
         });
 
-        return () => { players = []; };
     }, []);
 
     const startGame = () => {
