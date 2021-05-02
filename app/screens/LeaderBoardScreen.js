@@ -9,8 +9,43 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import * as firebase from "firebase";
 
 export default function LeaderBoardScreen({ route, navigation }) {
+
+  const [scoreBoard, setScoreBoard] = useState([]);
+
   const { lobbyId, isHost, isGameComplete, currentQuestionIndex } = route.params;
   const db = firebase.database();
+
+  useEffect(() => {
+    //Get player score
+    let dbRef = db.ref();
+
+    //Get Data
+    dbRef.child(`/${lobbyId}/score`).get().then((snapshot) => {
+
+      let unorderedScore = {};
+      let orderedScore = [];
+
+      if (snapshot.exists()) {
+        const players = snapshot.val();
+
+        for (userId in players) {
+          const { name, score } = players[userId];
+          unorderedScore[score] = { name };
+        }
+
+        Object.keys(unorderedScore).sort().reduce(
+          (obj, key) => {
+            orderedScore.push([obj[key], key]);
+            return;
+          },
+          {}
+        );
+
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
   const scores = [
     ['John', 234],
