@@ -50,10 +50,11 @@ export default function HostQuestionScreen({ route, navigation }) {
             console.error(error);
         });
 
-        let ref = db.ref(`${lobbyId}/Question/`);
+        // let ref = db.ref(`${lobbyId}/Question/`);
 
-        ref.on('value', (snapshot) => {
+        // ref.on('value', (snapshot) => {
 
+<<<<<<< HEAD
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 // console.log(data);
@@ -70,6 +71,19 @@ export default function HostQuestionScreen({ route, navigation }) {
                 }
             }
         });
+=======
+        //     if (snapshot.exists()) {
+        //         const data = snapshot.val();
+        //         // console.log(data);
+        //         const { submission } = data[currentQuestionIndex];
+        //         setTotalSubmission(totalSubmission);
+
+        //         if (submission === playerCount) {
+        //             onQuestionComplete();
+        //         }
+        //     }
+        // });
+>>>>>>> eeea9d872a0b944fb244db92ef416ee5e633dd43
 
     }, []);
 

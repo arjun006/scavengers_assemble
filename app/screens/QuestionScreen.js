@@ -43,7 +43,8 @@ export default function QuestionScreen({ route, navigation }) {
           const labels = data.responses[0].labelAnnotations;
           labels.forEach((label) => g_results.push(label.description));
           validatePicture();
-          console.log(g_results);
+          
+          //console.log(g_results);
         });
       }
     }
@@ -54,9 +55,17 @@ export default function QuestionScreen({ route, navigation }) {
         console.log(obj + " " + currentObject);
         setAnswer(true);
       }
-    });
-
-  };
+    })
+  }
+//Increment 
+  useEffect(()=>{
+      if(answer){
+        let subs = db.ref(`${lobbyId}/Question/submission`).get();
+        db.ref(`${lobbyId}/Question`).set({
+          submission: subs+1
+        });
+      }
+  },[answer]);
 
   const handleTimerComplete = () => {
     //Navigate to leaderboard
@@ -98,16 +107,17 @@ export default function QuestionScreen({ route, navigation }) {
         console.error(error);
       });
 
-    debRef = db.ref(`${lobbyId}/Question/`);
+    // debRef = db.ref(`${lobbyId}/Question/`);
 
-    debRef.on('value', (snapshot) => {
+    // debRef.on('value', (snapshot) => {
 
-      if (snapshot.exists()) {
+    //   if (snapshot.exists()) {
 
-        const allQuestions = snapshot.val();
+    //     const allQuestions = snapshot.val();
 
-        const { submission } = allQuestions[currentQuestionIndex];
+    //     const { submission } = allQuestions[currentQuestionIndex];
 
+<<<<<<< HEAD
         if (submission === playerCount) {
           //Navigate to leaderboard
           navigation.push("LeaderBoardScreen", {
@@ -118,8 +128,11 @@ export default function QuestionScreen({ route, navigation }) {
           });
         }
       }
+=======
+    //   }
+>>>>>>> eeea9d872a0b944fb244db92ef416ee5e633dd43
 
-    });
+    // });
 
   }, []);
 
