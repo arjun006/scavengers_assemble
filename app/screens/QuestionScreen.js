@@ -84,18 +84,14 @@ export default function QuestionScreen({ route, navigation }) {
 
   useEffect(() => {
 
-
-
-  }, [currentUserScore]);
-
-  const handleTimerComplete = () => {
-
     db.ref(`${lobbyId}/score/${id}/`).set({
       name,
       score: currentUserScore
     });
 
+  }, [currentUserScore]);
 
+  const handleTimerComplete = () => {
     setTimeout(
       function () {
         navigation.push("LeaderBoardScreen", {
