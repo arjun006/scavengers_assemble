@@ -7,8 +7,6 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
@@ -86,6 +84,7 @@ export default function HomeScreen({ navigation }) {
 
   const generateLobby = () => {
     //Genere Random Lobby ID
+    setCode(0);
     let lobbyId = Math.floor(Math.random() * 97999) + 10000;
 
     const randomGeneratedQuestion = QuestionGenerator(5);
@@ -103,21 +102,23 @@ export default function HomeScreen({ navigation }) {
 
     return lobbyId;
   };
-  //   const [hasPermission, setHasPermission] = useState(null);
 
-  //   useEffect(() => {
-  //     (async () => {
-  //     //   const { status } = await Camera.requestPermissionsAsync();
-  //     //   setHasPermission(status === "granted");
-  //     })();
-  //   }, []);
 
-  //   if (hasPermission === null) {
-  //     return <View />;
-  //   }
-  //   if (hasPermission === false) {
-  //     return <Text>No access to camera</Text>;
-  //   }
+  // const [hasPermission, setHasPermission] = useState(null);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Camera.requestPermissionsAsync();
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
+
+  // if (hasPermission === null) {
+  //   return <View />;
+  // }
+  // if (hasPermission === false) {
+  //   return <Text>No access to camera</Text>;
+  // }
   return (
     <>
       <View
