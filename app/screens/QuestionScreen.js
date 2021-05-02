@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
-// import {fs} from "fs";
+import callGoogleVIsionApi from '../googleVisionApi/callGoogleVIsionApi';
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Camera } from "expo-camera";
@@ -26,53 +26,16 @@ export default function QuestionScreen({navigation}) {
 
   const takePicture = async () => {
     if (cam.current) {
-      const options = { quality: 0.5, base64: true, skipProcessing: false };
+      const options = { quality: 1, base64: true, skipProcessing: false };
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
-      console.log(source);
+
       if (source) {
-        // cam.current.resumePreview();
-        // console.log(source);
         callGoogleVIsionApi(source);
       }
     }
-    setCorrect((correct) => true);
   };
 
-  const callGoogleVIsionApi = async (base64) => {
-    let googleVisionRes = await fetch(
-      "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          requests: [
-            {
-              image: {
-                content: base64,
-              },
-              features: [{ type: "LABEL_DETECTION", maxResults: 10 }],
-            },
-          ],
-        }),
-      }
-    );
-
-    await googleVisionRes
-      .json()
-      .then((googleVisionRes) => {
-        console.log(googleVisionRes);
-        if (googleVisionRes) {
-          this.setState({
-            loading: false,
-            googleVisionDetetion: googleVisionRes.responses[0],
-          });
-          console.log("this.is response", this.state.googleVisionDetetion);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
