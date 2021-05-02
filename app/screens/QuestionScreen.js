@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
+  Image,
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
@@ -177,6 +178,7 @@ export default function QuestionScreen({ route, navigation }) {
         </Text>
 
         {!correct ? (
+          <>
           <Camera
             ref={cam}
             style={{
@@ -189,12 +191,15 @@ export default function QuestionScreen({ route, navigation }) {
             }}
             type={type}
           />
-        ) : null}
-        <View style={styles.bottom}>
+          <View style={styles.bottom}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Text style={styles.buttonText}>Take a picture</Text>
+            <Image source={require('../images/camera-icon.png')}/>
+            {/* <Text style={styles.buttonText}>Take a picture</Text> */}
           </TouchableOpacity>
         </View>
+          </>
+        ) : null}
+        
       </View>
       <View style={styles.score}>
         <Text style={styles.score_name}>{name}</Text>
@@ -206,11 +211,9 @@ export default function QuestionScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "blue",
-    borderRadius: 35,
-    paddingVertical: 15,
-    paddingHorizontal: 70,
-    marginTop: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 30,
   },
   topbar: {
     flexDirection: "row",
@@ -236,7 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     marginBottom: "10%",
-    marginTop: 5,
+    marginTop: 15,
   },
   score: {
     justifyContent: "space-between",
@@ -248,14 +251,18 @@ const styles = StyleSheet.create({
   },
   score_text: {
     color: colours.black,
+    fontSize:20,
+    fontWeight:"bold",
     textAlign: "right",
-    marginRight: 12,
+    marginRight: 20,
     marginBottom: 8,
   },
   score_name: {
     color: colours.black,
+    fontSize:20,
+    fontWeight:"bold",
     textAlign: "left",
-    marginLeft: 12,
+    marginLeft: 20,
     marginBottom: 8,
   },
   subs: {
