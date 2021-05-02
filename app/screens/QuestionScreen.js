@@ -43,7 +43,8 @@ export default function QuestionScreen({ route, navigation }) {
           const labels = data.responses[0].labelAnnotations;
           labels.forEach((label) => g_results.push(label.description));
           validatePicture();
-          console.log(g_results);
+          
+          //console.log(g_results);
         });
       }
     }
@@ -54,9 +55,17 @@ export default function QuestionScreen({ route, navigation }) {
         console.log(obj + " " + currentObject);
         setAnswer(true);
       }
-    });
-
-  };
+    })
+  }
+//Increment 
+  useEffect(()=>{
+      if(answer){
+        let subs = db.ref(`${lobbyId}/Question/submission`).get();
+        db.ref(`${lobbyId}/Question`).set({
+          submission: subs+1
+        });
+      }
+  },[answer]);
 
   const handleTimerComplete = () => {
     //Navigate to leaderboard
