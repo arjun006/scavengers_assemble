@@ -49,6 +49,8 @@ export default function QuestionScreen({ route, navigation }) {
           validatePicture();
 
           //console.log(g_results);
+        }).finally(() => {
+
         });
       }
     }
@@ -80,13 +82,17 @@ export default function QuestionScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    db.ref(`${lobbyId}/score/${id}`).set({
-      name,
-      score: currentUserScore
-    });
+
+
+
   }, [currentUserScore]);
 
   const handleTimerComplete = () => {
+
+    db.ref(`${lobbyId}/score/${id}/`).set({
+      name,
+      score: currentUserScore
+    });
 
     //Navigate to leaderboard
     navigation.push("LeaderBoardScreen", {
