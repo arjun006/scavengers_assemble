@@ -19,30 +19,42 @@ import * as firebase from "firebase";
 export default function HomeScreen({ navigation }) {
   const [name, setName] = useState('');
   const [code, setCode] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
   const db = firebase.database();
 
   const onEnterPress = () => {
 
     if (name && code > 0) {
       console.log(code);
-      const dbRef = firebase.database().ref();
+      const dbRef = db.ref();
 
       dbRef.child(code).get().then((snapshot) => {
         if (snapshot.exists()) {
-          setModalVisible(false);
-          console.log('IS VALID');
+          addUserToLobby(name, code);
+          navigation.navigate('Waiting',
+            {
+              lobbyId: code,
+              name
+            });
         } else {
           showErrorMessage();
 
         }
       }).catch((error) => {
+        console.log(error);
         showErrorMessage();
       });
 
     }
 
-    // navigation.navigate('Waiting');
+  };
+
+  const addUserToLobby = (name, lobbyId) => {
+    //If score node exist
+    db.ref(`${lobbyId}/score`).push({
+      name,
+      score: 0
+    });
+
   };
 
   const showErrorMessage = () => {
@@ -91,12 +103,6 @@ export default function HomeScreen({ navigation }) {
 
     return lobbyId;
   };
-
-  const doesLobbyIdExist = async (lobbyId) => {
-
-
-  };
-
   //   const [hasPermission, setHasPermission] = useState(null);
 
   //   useEffect(() => {
