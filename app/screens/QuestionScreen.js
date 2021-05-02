@@ -13,6 +13,7 @@ import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import { Camera } from "expo-camera";
+import { ImagePicker, Permissions } from 'expo';
 
 export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -21,18 +22,27 @@ export default function QuestionScreen() {
   const [isPlaying, setIsPlaying] = useState(true);
   const cam = useRef();
 
+//   const takePicture = async () => {
+//     if (cam.current) {
+//       const options = { quality: 0.5, base64: true, skipProcessing: false };
+//       let photo = await cam.current.takePictureAsync(options);
+//       const source = photo.uri;
+//       console.log(source);
+//       if (source) {
+//         cam.current.resumePreview();
+//         console.log(source);
+//       }
+//     }
+//     setCorrect((correct) => true);
+//   };
   const takePicture = async () => {
-    if (cam.current) {
-      const options = { quality: 0.5, base64: true, skipProcessing: false };
-      let photo = await cam.current.takePictureAsync(options);
-      const source = photo.uri;
-      if (source) {
-        cam.current.resumePreview();
-        console.log(source);
-      }
-    }
-    setCorrect((correct) => true);
-  };
+    let pickerResult = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3]
+    });
+
+    this._handleImagePicked(pickerResult);
+};
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -46,7 +56,7 @@ export default function QuestionScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
+  //GOOGLE_CLOUD_VISION_API_KEY: "AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
   return (
     <View style={styles.background}>
       <View style={styles.timer}>
@@ -96,7 +106,7 @@ export default function QuestionScreen() {
         ) : null}
         <View style={styles.bottom}>
           <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Text style={styles.buttonText}>Take a picture</Text>
+            <Text style={styles.buttonText} >Take a picture</Text>
           </TouchableOpacity>
         </View>
       </View>
