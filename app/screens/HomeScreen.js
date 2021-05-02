@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('Waiting');
   };
   const onHostPress = () => {
-    navigation.navigate('Lobby');
+    navigation.navigate('Lobby',{code:code});
     // var database = firebase.database();
     // console.log('working');
 
@@ -36,8 +36,9 @@ export default function HomeScreen({ navigation }) {
 
   const generateLobby = () => {
     //Genere Random Lobby ID
+    setCode(0);
     let lobbyId = Math.floor(Math.random() * 97999) + 10000;
-
+    setCode(lobbyId);
     //Check if it exists in DB
     let isValid = false;
     console.log(lobbyId);
@@ -77,21 +78,21 @@ export default function HomeScreen({ navigation }) {
     });
   };
 
-    const [hasPermission, setHasPermission] = useState(null);
+    // const [hasPermission, setHasPermission] = useState(null);
 
-    useEffect(() => {
-      (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === "granted");
-      })();
-    }, []);
+    // useEffect(() => {
+    //   (async () => {
+    //     const { status } = await Camera.requestPermissionsAsync();
+    //     setHasPermission(status === "granted");
+    //   })();
+    // }, []);
 
-    if (hasPermission === null) {
-      return <View />;
-    }
-    if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
-    }
+    // if (hasPermission === null) {
+    //   return <View />;
+    // }
+    // if (hasPermission === false) {
+    //   return <Text>No access to camera</Text>;
+    // }
   return (
     <>
       <View
