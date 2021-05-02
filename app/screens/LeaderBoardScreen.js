@@ -5,15 +5,29 @@ import GlobalStyles from './../config/GlobalStyles';
 import colours from '../config/colours';
 import { color } from "react-native-reanimated";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as firebase from "firebase";
 
-export default function LeaderBoardScreen() {
-  const [isHost] = useState(false);
+export default function LeaderBoardScreen({ route, navigation }) {
+  const { lobbyId, isHost, isGameComplete } = route.params;
+  const db = firebase.database();
+
   const scores = [
     ['John', 234],
     ['Sarah', 234],
     ['Mary', 234],
     ['Austin', 234],
   ];
+
+  const handleNextQuestion = () => {
+    if (isGameComplete) {
+      const dbRef = firebase.database().ref(`${lobbyId}`);
+      dbRef.remove();
+      navigation.push('Home');
+    }
+    else
+      navigation.push('HostQuestion', { lobbyId, isHost, isGameComplete });
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <Text style={GlobalStyles.title}>Leaderboard</Text>
@@ -38,8 +52,11 @@ export default function LeaderBoardScreen() {
         <View>
           <TouchableOpacity
             activeOpacity={.9}
-            style={GlobalStyles.buttonBlack}>
-            <Text style={GlobalStyles.whiteText}>New Game</Text>
+            style={GlobalStyles.buttonBlack}
+            onPress={handleNextQuestion}>
+            <Text style={GlobalStyles.whiteText}>
+              {isGameComplete ? 'Complete Game' : 'Next'}
+            </Text>
           </TouchableOpacity>
         </View>
       }

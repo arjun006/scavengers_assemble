@@ -65,7 +65,8 @@ export default function HomeScreen({ navigation }) {
     const lobbyId = generateLobby();
 
     navigation.navigate('Lobby', {
-      lobbyId
+      lobbyId,
+      isHost: true
     });
   };
 

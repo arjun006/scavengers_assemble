@@ -12,7 +12,7 @@ export default LobbyScreen = ({ route, navigation }) => {
     const db = firebase.database();
 
     /* 2. Get the param */
-    const { lobbyId } = route.params;
+    const { lobbyId, isHost } = route.params;
 
     // const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
 
@@ -41,6 +41,11 @@ export default LobbyScreen = ({ route, navigation }) => {
 
         dbRef.update({
             gameStarted: true
+        });
+
+        navigation.push('HostQuestion', {
+            lobbyId,
+            isHost
         });
     };
 
