@@ -30,17 +30,17 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
         for (userId in players) {
           const { name, score } = players[userId];
-          unorderedScore[score] = { name };
+          unorderedScore[score] = name;
         }
 
-        Object.keys(unorderedScore).sort().reduce(
-          (obj, key) => {
-            orderedScore.push([obj[key], key]);
-            return;
-          },
-          {}
-        );
+        let keys = Object.keys(unorderedScore);
+        keys.sort(function (a, b) { return a - b; });
 
+        keys.forEach(key => {
+          orderedScore.push([unorderedScore[key], key]);
+        });
+
+        setScoreBoard(orderedScore);
       }
     }).catch((error) => {
       console.error(error);
@@ -101,7 +101,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
       <View style={LBoardStyles.leaderboardContainer}>
         {
-          scores.map((score, index) => (
+          scoreBoard.map((score, index) => (
             <View style={LBoardStyles.playerScoreContainer} key={index}>
               <Text style={GlobalStyles.nameList}>{score[0]}</Text>
               <Text style={GlobalStyles.nameList}>{score[1]}</Text>
