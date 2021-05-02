@@ -35,7 +35,6 @@ export default function QuestionScreen() {
     }
   };
 
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
