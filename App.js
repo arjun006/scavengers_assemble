@@ -47,10 +47,10 @@ export default function App() {
           headerShown: false,
           cardStyle: { backgroundColor: "#0000" },
         }}
-      ><Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="HostQuestion" component={HostQuestionScreen} />
-        
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Question" component={QuestionScreen} />
+        <Stack.Screen name="HostQuestion" component={HostQuestionScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />
         <Stack.Screen name="Waiting" component={WaitingScreen} />

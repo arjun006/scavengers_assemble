@@ -25,8 +25,9 @@ export default function HomeScreen({ navigation }) {
       console.log(code);
       const dbRef = db.ref();
 
-      dbRef.child(code).get().then((snapshot) => {
-        if (snapshot.exists()) {
+      //If lobby exist
+      dbRef.child(`${code}/gameStarted`).get().then((snapshot) => {
+        if (snapshot.exists() && !snapshot.val()) {
           const user = db.ref(`${code}/score`).push({
             name,
             score: 0
@@ -50,17 +51,10 @@ export default function HomeScreen({ navigation }) {
     }
 
   };
-
-  const addUserToLobby = (name, lobbyId) => {
-    //If score node exist
-
-
-  };
-
   const showErrorMessage = () => {
     Alert.alert(
-      "Alert Title",
-      "Invalid Lobby Code",
+      "Error",
+      "Invalid Lobby Code or Game is in-progress",
       [
         { text: "OK" }
       ]
@@ -79,7 +73,6 @@ export default function HomeScreen({ navigation }) {
     //Genere Random Lobby ID
     setCode(0);
     let lobbyId = Math.floor(Math.random() * 97999) + 10000;
-
     const randomGeneratedQuestion = QuestionGenerator(5);
     //Else => Push it to DB
 
