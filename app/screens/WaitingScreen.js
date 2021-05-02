@@ -30,8 +30,14 @@ export default function WaitingScreen({ route, navigation }) {
 
             const gameStarted = snapshot.val();
 
-            if (gameStarted)
-                navigation.navigate('Question');
+            if (gameStarted) {
+                navigation.navigate('Question', {
+                    currentQuestionIndex: 0,
+                    isHost: false,
+                    lobbyId
+                });
+            }
+
         });
 
 

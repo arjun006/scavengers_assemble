@@ -61,6 +61,7 @@ export default function HomeScreen({ navigation }) {
 
     navigation.navigate("Lobby", {
       lobbyId,
+      isHost: true
     });
   };
 
