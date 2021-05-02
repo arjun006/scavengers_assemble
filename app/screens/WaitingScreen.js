@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Button, ActivityIndicator } from 'react-native';
 import GlobalStyles from './../config/GlobalStyles';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
+import * as firebase from "firebase";
 
 export default function WaitingScreen({ route, navigation }) {
-    const { lobbyId, name } = route.params;
+    const { lobbyId, name, id } = route.params;
+    const db = firebase.database();
 
-    console.log(`User ${name} has entered Lobby ${lobbyId}`);
+    console.log(`User ${name} has entered Lobby ${lobbyId}: ${id}`);
+
+    useEffect(() => {
+        var debRef = db.ref(`${lobbyId}/gameStarted`);
+
+        debRef.on('value', (snapshot) => {
+
+            const gameStarted = snapshot.val();
+
+            if (gameStarted)
+                navigation.navigate('Question');
+        });
+    }, []);
 
     return (
         <View style={GlobalStyles.background}>

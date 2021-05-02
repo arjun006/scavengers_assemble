@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import GlobalStyles from './../config/GlobalStyles';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
+import * as firebase from "firebase";
 
 export default LobbyScreen = ({ route, navigation }) => {
+
+    const [playerList, setPlayerList] = useState([]);
+    const db = firebase.database();
 
     /* 2. Get the param */
     const { lobbyId } = route.params;
 
-    console.log('Lobby ID: ' + lobbyId);
+    // const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
 
-    const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
+    useEffect(() => {
+        var debRef = db.ref(`${lobbyId}/score`);
+
+        debRef.on('value', (snapshot) => {
+            let players = [];
+            const dbValue = snapshot.val();
+
+            for (let userId in dbValue) {
+                const userObject = dbValue[userId];
+                const { name } = userObject;
+                players.push(name);
+            }
+
+            if (players.length > 0)
+                setPlayerList(players);
+        });
+    }, []);
+
+    const startGame = () => {
+        var dbRef = db.ref(`${lobbyId}/`);
+
+        dbRef.update({
+            gameStarted: true
+        });
+    };
 
     return (
         <View style={GlobalStyles.background}>
@@ -21,7 +49,7 @@ export default LobbyScreen = ({ route, navigation }) => {
 
             <View style={LobbyStyles.playerContainer}>
                 {
-                    list.map((player, index) => (
+                    playerList && playerList.map((player, index) => (
                         <Text key={index} style={LobbyStyles.player}>{player}</Text>
                     ))
                 }
@@ -29,7 +57,8 @@ export default LobbyScreen = ({ route, navigation }) => {
 
             <TouchableOpacity
                 activeOpacity={.9}
-                style={GlobalStyles.buttonBlack}>
+                style={GlobalStyles.buttonBlack}
+                onPress={() => startGame()}>
                 <Text style={GlobalStyles.whiteText}>Start Game</Text>
             </TouchableOpacity>
 
