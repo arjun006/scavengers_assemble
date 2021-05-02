@@ -1,38 +1,83 @@
-# Scavenger's Assemble
+<br />
+<p align="center">
+  <a href="https://github.com/arjun006/scavengers_assemble">
+    <img src="/assets/fonts/images/homescreen.jpg" alt="Logo">
+  </a>
 
-<p>
-  <!-- iOS -->
-  <a href="https://itunes.apple.com/app/apple-store/id982107779">
-    <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  </a>
-  <!-- Android -->
-  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample">
-    <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  </a>
+  <div align="center">
+
+</div>
+
+  <h2 align="center">Scavenger Assemble</h2>
+
 </p>
 
-## 🚀 How to use
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-- Install packages with `npm install`.
-- Run `expo start` to start the bundler.
-- The Expo server will start in the browser
-- Download `Expo CLI` on Android or iPhone
--Scan the QR code to start the app
+<!-- ABOUT THE PROJECT -->
 
-## Adding Native Code
+## About The Project
 
-This project can be run from a web browser or the Expo client app. You may find that you want to add more native code later on. You can do this by ejecting the project and rebuilding it yourself.
+Since the socialization of children plays an important factor in their growth, we decided to bring them together with our mobile app. 'Scavenger's Assemble' helps children continue to interact and play together even through the COVID-19 quarantine. The app allows a teacher/ parent to host a scavenger hunt game for the children where they can join a game with their friends and play together in real-time. The app leverages the mobile camera, where children can take pictures of items from the scavenger's list.
 
-- Run `yarn eject` to create the native projects.
-- You can still run your project in the web browser or Expo client, you just won't be able to access any new native modules you add.
+### Built With
 
-## Publishing
+The front-end of the application was designed using Adobe XD and implemented through React-Native and Expo for cross-platform mobile use. The multiplayer support was handled on the backend using Google Firebase's Realtime Database to keep all players in sync. Meanwhile the photos taken in game is sent to Google Cloud's Vision AI to identify if an item found is correct or incorrect.
+<!-- GETTING STARTED -->
 
-- Deploy the native app to the App store and Play store using this guide: [Deployment](https://docs.expo.io/distribution/app-stores/).
-- Deploy the website using this guide: [Web deployment](https://docs.expo.io/distribution/publishing-websites/).
+## Getting Started
 
-## 📝 Notes
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-- Learn more about [Universal React](https://docs.expo.io/).
-- See what API and components are [available in the React runtimes](https://docs.expo.io/versions/latest/).
-- Find out more about developing apps and websites: [Guides](https://docs.expo.io/guides/).
+### Prerequisites
+
+- Node (frontend)
+- npm
+
+### Installation
+
+```sh
+npm
+npm start
+```
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+[Wisdom Ng](https://www.linkedin.com/in/wisdom-ng-56b49b18a/) - Linkedin
+
+[Jenil Vekaria](https://www.linkedin.com/in/jenilvekaria) - Linkedin
+
+[Aaron Cartier](https://www.linkedin.com/in/aaroncartier/) - Linkedin
+
+[Arjun Devakumar](https://www.linkedin.com/in/arjundevakumar/) - Linkedin
+
+
