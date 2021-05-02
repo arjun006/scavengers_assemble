@@ -37,7 +37,8 @@ export default function QuestionScreen({ route, navigation }) {
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
       if (source) {
-        callGoogleVIsionApi(source);
+        let result = await callGoogleVIsionApi(source);
+        console.log(result)
       }
     }
   };
