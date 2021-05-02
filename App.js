@@ -16,7 +16,6 @@ if (!global.atob) {
 }
 import * as firebase from "firebase";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyCRTgDvOp21bQ3F4aY4QPdSjkFarshOSxY",
   authDomain: "scavengers-assemble.firebaseapp.com",
@@ -26,6 +25,7 @@ const firebaseConfig = {
   messagingSenderId: "91227724299",
   appId: "1:91227724299:web:1adf1aba8f1449fbacc50e",
   measurementId: "G-L8PH7QJ331",
+  GOOGLE_CLOUD_VISION_API_KEY: "AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
 };
 
 if (!firebase.apps.length) {

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google-cloud/vision": "^2.3.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-firebase/app": "^11.4.1",
     "@react-navigation/native": "^5.9.4",
@@ -20,7 +21,8 @@
     "react-native-svg": "^12.1.1",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "~7.12.0"
