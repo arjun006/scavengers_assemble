@@ -33,7 +33,7 @@ export default LobbyScreen = ({ route, navigation }) => {
                 setPlayerList(players);
         });
 
-        return () => { players = []; };
+        //return () => { players = []; };
     }, []);
 
     const startGame = () => {

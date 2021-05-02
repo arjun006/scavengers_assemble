@@ -54,24 +54,6 @@ export default function HostQuestionScreen({ route, navigation }) {
 
         // ref.on('value', (snapshot) => {
 
-<<<<<<< HEAD
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                // console.log(data);
-                const { submission } = data[currentQuestionIndex];
-                setTotalSubmission(totalSubmission);
-
-                if (submission === playerCount) {
-                    navigation.push('LeaderBoardScreen', {
-                        lobbyId,
-                        isHost,
-                        isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-                        currentQuestionIndex: currentQuestionIndex + 1
-                    });
-                }
-            }
-        });
-=======
         //     if (snapshot.exists()) {
         //         const data = snapshot.val();
         //         // console.log(data);
@@ -83,7 +65,6 @@ export default function HostQuestionScreen({ route, navigation }) {
         //         }
         //     }
         // });
->>>>>>> eeea9d872a0b944fb244db92ef416ee5e633dd43
 
     }, []);
 

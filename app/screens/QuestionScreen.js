@@ -117,20 +117,7 @@ export default function QuestionScreen({ route, navigation }) {
 
     //     const { submission } = allQuestions[currentQuestionIndex];
 
-<<<<<<< HEAD
-        if (submission === playerCount) {
-          //Navigate to leaderboard
-          navigation.push("LeaderBoardScreen", {
-            currentQuestionIndex: currentQuestionIndex + 1,
-            isHost,
-            lobbyId,
-            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-          });
-        }
-      }
-=======
     //   }
->>>>>>> eeea9d872a0b944fb244db92ef416ee5e633dd43
 
     // });
 
