@@ -26,11 +26,15 @@ export default function QuestionScreen({ route, navigation }) {
   const [complete, setComplete] = useState(false); //Coundown finish state
   const [currentObject, setCurrentObject] = useState(""); //Object Name
   const [totalQuestion, setTotalQuestion] = useState(0); // Total questions
+  const [score, setScore] = useState(500);
+  const [time, setTime] = useState(0);
   const cam = useRef();
   const db = firebase.database();
 
   const { currentQuestionIndex, isHost, lobbyId, playerCount } = route.params;
-
+  //start timer here
+  let start = Date.now();
+  let end;
   let g_results = [];
   const takePicture = async () => {
     if (cam.current) {
@@ -48,6 +52,7 @@ export default function QuestionScreen({ route, navigation }) {
       }
     }
   };
+  
   const validatePicture = () => {
     let checker = false;
     g_results.map((obj) => {
@@ -55,10 +60,15 @@ export default function QuestionScreen({ route, navigation }) {
         console.log(obj + " " + currentObject);
         checker = true;
         setCorrect(true);
+        end = Date.now()
+        let scoreLost = 500 - (Math.floor((end-start)/1000) * 7);
+        setScore(scoreLost)
       }
     });
     setAnswer(checker);
-
+    //if answer true stop time
+    //scoreLost = timeElapsed * 7
+    //calcScore = score - scoreLost 
     // if (checker) {
     //   const updates = {};
     //   updates[`${lobbyId}/Question/${currentQuestionIndex}/submission`] = firebase.database.ServerValue.increment(1);
@@ -107,20 +117,6 @@ export default function QuestionScreen({ route, navigation }) {
       .catch((error) => {
         console.error(error);
       });
-
-    // debRef = db.ref(`${lobbyId}/Question/`);
-
-    // debRef.on('value', (snapshot) => {
-
-    //   if (snapshot.exists()) {
-
-    //     const allQuestions = snapshot.val();
-
-    //     const { submission } = allQuestions[currentQuestionIndex];
-
-    //   }
-
-    // });
   }, []);
 
   if (hasPermission === null) {
@@ -190,7 +186,7 @@ export default function QuestionScreen({ route, navigation }) {
       </View>
       <View style={styles.score}>
         <Text style={styles.score_name}>John</Text>
-        <Text style={styles.score_text}>500</Text>
+        <Text style={styles.score_text}>{score}</Text>
       </View>
     </View>
   );
