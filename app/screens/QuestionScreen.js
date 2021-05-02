@@ -49,16 +49,15 @@ export default function QuestionScreen({ route, navigation }) {
     }
   };
   const validatePicture = () => {
+    let checker = false;
     g_results.map((obj) => {
       if (obj.toLowerCase().includes(currentObject.toLowerCase())) {
         console.log(obj + " " + currentObject);
-        setAnswer(true);
+        checker = true;
         setCorrect(true);
-        break;
-      } else {
-        setAnswer(false);
       }
     });
+    setAnswer(checker);
   };
   //Increment
   useEffect(() => {
