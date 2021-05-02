@@ -76,7 +76,7 @@ export default function HomeScreen({ navigation }) {
       gameStarted: false,
       score: {},
       currentQuestion: 0,
-      totalQuestion: 5,
+      totalQuestion: Object.keys(randomGeneratedQuestion).length,
       Question: randomGeneratedQuestion,
     });
 
