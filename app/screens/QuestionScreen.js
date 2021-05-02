@@ -95,17 +95,26 @@ export default function QuestionScreen({ route, navigation }) {
       score: currentUserScore
     });
 
+
+    setTimeout(
+      function () {
+        navigation.push("LeaderBoardScreen", {
+          currentQuestionIndex: currentQuestionIndex + 1,
+          isHost,
+          lobbyId,
+          isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+          playerCount,
+          score: currentUserScore,
+          id,
+          name
+        });
+      }
+        .bind(this),
+      1000
+    );
+
     //Navigate to leaderboard
-    navigation.push("LeaderBoardScreen", {
-      currentQuestionIndex: currentQuestionIndex + 1,
-      isHost,
-      lobbyId,
-      isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-      playerCount,
-      score: currentUserScore,
-      id,
-      name
-    });
+
   };
   // useEffect(()=>{
   //   console.log(answer);
@@ -185,27 +194,27 @@ export default function QuestionScreen({ route, navigation }) {
 
         {!correct ? (
           <>
-          <Camera
-            ref={cam}
-            style={{
-              flex: 7,
-              alignItems: "center",
-              width: "80%",
-              height: "80%",
-              borderRadius: 50,
-              flexDirection: "row",
-            }}
-            type={type}
-          />
-          <View style={styles.bottom}>
-          <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Image source={require('../images/camera-icon.png')}/>
-            {/* <Text style={styles.buttonText}>Take a picture</Text> */}
-          </TouchableOpacity>
-        </View>
+            <Camera
+              ref={cam}
+              style={{
+                flex: 7,
+                alignItems: "center",
+                width: "80%",
+                height: "80%",
+                borderRadius: 50,
+                flexDirection: "row",
+              }}
+              type={type}
+            />
+            <View style={styles.bottom}>
+              <TouchableOpacity style={styles.button} onPress={takePicture}>
+                <Image source={require('../images/camera-icon.png')} />
+                {/* <Text style={styles.buttonText}>Take a picture</Text> */}
+              </TouchableOpacity>
+            </View>
           </>
         ) : null}
-        
+
       </View>
       <View style={styles.score}>
         <Text style={styles.score_name}>{name}</Text>
@@ -257,16 +266,16 @@ const styles = StyleSheet.create({
   },
   score_text: {
     color: colours.black,
-    fontSize:20,
-    fontWeight:"bold",
+    fontSize: 20,
+    fontWeight: "bold",
     textAlign: "right",
     marginRight: 20,
     marginBottom: 8,
   },
   score_name: {
     color: colours.black,
-    fontSize:20,
-    fontWeight:"bold",
+    fontSize: 20,
+    fontWeight: "bold",
     textAlign: "left",
     marginLeft: 20,
     marginBottom: 8,
