@@ -43,7 +43,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         }
       </View>
 
-      {!isHost ?
+      {isHost ?
         <View>
           <Text style={LBoardStyles.title}>Waiting for host to start next hunt </Text>
           <ActivityIndicator size="large" color={colours.black} style={LBoardStyles.loader} />
