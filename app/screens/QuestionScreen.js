@@ -12,7 +12,6 @@ import GlobalStyles from "./../config/GlobalStyles";
 // import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { Vision } from "@google-cloud/vision";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
 
@@ -49,16 +48,7 @@ export default function QuestionScreen(navigation) {
               "content": base64
             },
             features: [
-              { type: "LABEL_DETECTION", maxResults: 10 },
-              { type: "LANDMARK_DETECTION", maxResults: 5 },
-              { type: "FACE_DETECTION", maxResults: 5 },
-              { type: "LOGO_DETECTION", maxResults: 5 },
-              { type: "TEXT_DETECTION", maxResults: 5 },
-              { type: "DOCUMENT_TEXT_DETECTION", maxResults: 5 },
-              { type: "SAFE_SEARCH_DETECTION", maxResults: 5 },
-              { type: "IMAGE_PROPERTIES", maxResults: 5 },
-              { type: "CROP_HINTS", maxResults: 5 },
-              { type: "WEB_DETECTION", maxResults: 5 }
+              { type: "LABEL_DETECTION", maxResults: 10 }
             ],
           }
         ]
