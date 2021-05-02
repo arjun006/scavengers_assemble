@@ -19,25 +19,6 @@ export default function LeaderBoardScreen({ route, navigation }) {
     ['Austin', 234],
   ];
 
-
-  // const handleNextQuestion = () => {
-  //   if (isGameComplete) {
-  //     const dbRef = firebase.database().ref(`${lobbyId}`);
-  //     dbRef.remove();
-  //     navigation.navigate('Home');
-  //   }
-  //   else {
-
-  //     //Increment database questionIndexCount
-  //     let dbRef = db.ref(`${lobbyId}/`);
-
-  //     //Increment questionIndex
-  //     dbRef.update({
-  //       currentQuestion: currentQuestionIndex
-  //     });
-  //   }
-  // };
-
   const onTimerComplete = () => {
     if (isGameComplete) {
       const dbRef = firebase.database().ref(`${lobbyId}`);
