@@ -7,7 +7,7 @@ export default (limit) => {
     while (count < limit) {
 
         result[count] = {
-            object: objects[randomIndex],
+            object: objects[count],
             submission: 0
         };
 
