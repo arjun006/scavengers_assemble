@@ -46,11 +46,12 @@ export default function App() {
           cardStyle: { backgroundColor: "#0000" },
         }}
       >
-        <Stack.Screen name="Question" component={QuestionScreen} />
+        
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="LeaderBoardScreen" component={LeaderBoardScreen} />
         <Stack.Screen name="Lobby" component={LobbyScreen} />
         <Stack.Screen name="Waiting" component={WaitingScreen} />
+        <Stack.Screen name="Question" component={QuestionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
