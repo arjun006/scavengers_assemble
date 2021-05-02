@@ -9,11 +9,13 @@ import {
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
-import callGoogleVIsionApi from '../googleVisionApi/callGoogleVIsionApi';
+import callGoogleVIsionApi from "../googleVisionApi/callGoogleVIsionApi";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -21,6 +23,7 @@ export default function QuestionScreen() {
   const [correct, setCorrect] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [picture, setPicture] = useState(null);
+  const [answer, setAnswer] = useState(null);
   const cam = useRef();
 
   const takePicture = async () => {
@@ -28,7 +31,6 @@ export default function QuestionScreen() {
       const options = { quality: 1, base64: true, skipProcessing: false };
       let photo = await cam.current.takePictureAsync(options);
       const source = photo.base64;
-
       if (source) {
         callGoogleVIsionApi(source);
       }
@@ -48,7 +50,6 @@ export default function QuestionScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  //GOOGLE_CLOUD_VISION_API_KEY: "AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
   return (
     <View style={styles.background}>
       <View style={styles.timer}>
@@ -71,7 +72,15 @@ export default function QuestionScreen() {
       </View>
       <View style={styles.new_background}>
         <Text style={GlobalStyles.title}>Take a Picture of</Text>
-        <Text style={styles.subs}>Towel</Text>
+        <Text style={styles.subs}>
+          Towel{"  "}
+          {answer == true ? (
+            <FontAwesome name="check" size={24} color="green" />
+          ) : answer == false ? (
+            <Entypo name="cross" size={24} color="purple" />
+          ) : null}
+        </Text>
+
         {!correct ? (
           <Camera
             ref={cam}
@@ -171,5 +180,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     flex: 1,
+  },
+  check: {
+    margin: 5,
   },
 });
