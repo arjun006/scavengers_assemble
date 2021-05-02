@@ -13,7 +13,8 @@ import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import { Camera } from "expo-camera";
-import { ImagePicker, Permissions } from "expo";
+import { Permissions } from "expo-permissions";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -22,27 +23,42 @@ export default function QuestionScreen() {
   const [isPlaying, setIsPlaying] = useState(true);
   const cam = useRef();
 
-  //   const takePicture = async () => {
-  //     if (cam.current) {
-  //       const options = { quality: 0.5, base64: true, skipProcessing: false };
-  //       let photo = await cam.current.takePictureAsync(options);
-  //       const source = photo.uri;
-  //       console.log(source);
-  //       if (source) {
-  //         cam.current.resumePreview();
-  //         console.log(source);
-  //       }
-  //     }
-  //     setCorrect((correct) => true);
-  //   };
-  const takePicture = async () => {
-    let pickerResult = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
+    const takePicture = async () => {
+      if (cam.current) {
+        const options = { quality: 0.5, base64: true, skipProcessing: false };
+        let photo = await cam.current.takePictureAsync(options);
+        const source = photo.uri;
+        console.log(source);
+        if (source) {
+          cam.current.resumePreview();
+          console.log(source);
+        }
+      }
+      setCorrect((correct) => true);
+    };
+//   const takePicture = async () => {
+//     let pickerResult = await ImagePicker.launchCameraAsync({
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//     });
 
-    this._handleImagePicked(pickerResult);
-  };
+//     this._handleImagePicked(pickerResult);
+//   };
+//   const _handleImagePicked = async pickerResult => {
+//     try {
+//         this.setState({ uploading: true });
+
+//         if (!pickerResult.cancelled) {
+//             uploadUrl = await uploadImageAsync(pickerResult.uri);
+//             this.setState({ image: uploadUrl });
+//         }
+//     } catch (e) {
+//         console.log(e);
+//         alert('Upload failed, sorry :(');
+//     } finally {
+//         this.setState({ uploading: false });
+//     }
+// };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
