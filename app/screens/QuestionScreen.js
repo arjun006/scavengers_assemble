@@ -24,7 +24,7 @@ export default function QuestionScreen({ route, navigation }) {
   const [isPlaying, setIsPlaying] = useState(true); //Countdown State playing
   const [answer, setAnswer] = useState(null); //Checkmark/Cross on off
   const [complete, setComplete] = useState(false); //Coundown finish state
-  const [currentObject, setCurrentObject] = useState(''); //Object Name
+  const [currentObject, setCurrentObject] = useState(""); //Object Name
   const [totalQuestion, setTotalQuestion] = useState(0); // Total questions
   const cam = useRef();
   const db = firebase.database();
@@ -53,20 +53,22 @@ export default function QuestionScreen({ route, navigation }) {
     let dbRef = db.ref();
 
     //Get Data
-    dbRef.child(`/${lobbyId}`).get().then((snapshot) => {
-      if (snapshot.exists()) {
-        const { totalQuestion, Question } = snapshot.val();
+    dbRef
+      .child(`/${lobbyId}`)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const { totalQuestion, Question } = snapshot.val();
 
-        const { object } = Question[currentQuestionIndex];
+          const { object } = Question[currentQuestionIndex];
 
-        setCurrentObject(object);
-        setTotalQuestion(totalQuestion);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-
-
+          setCurrentObject(object);
+          setTotalQuestion(totalQuestion);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   if (hasPermission === null) {
@@ -77,15 +79,13 @@ export default function QuestionScreen({ route, navigation }) {
   }
 
   const handleTimerComplete = () => {
-
     //Navigate to leaderboard
-    navigation.push('LeaderBoardScreen', {
+    navigation.push("LeaderBoardScreen", {
       currentQuestionIndex: currentQuestionIndex + 1,
       isHost,
       lobbyId,
       isGameComplete: currentQuestionIndex + 1 >= totalQuestion
     });
-
   };
 
   return (
@@ -111,7 +111,8 @@ export default function QuestionScreen({ route, navigation }) {
       <View style={styles.new_background}>
         <Text style={GlobalStyles.title}>Take a Picture of</Text>
         <Text style={styles.subs}>
-          {currentObject}{"  "}
+          {currentObject}
+          {"  "}
           {answer == true ? (
             <FontAwesome name="check" size={24} color="green" />
           ) : answer == false ? (
