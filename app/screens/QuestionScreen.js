@@ -91,24 +91,28 @@ export default function QuestionScreen({ route, navigation }) {
 
   return (
     <View style={styles.background}>
-      <View style={styles.timer}>
-        <CountdownCircleTimer
-          size={70}
-          isPlaying={isPlaying}
-          duration={10}
-          colors={[
-            ["#00FF00", 0.83],
-            ["#FF8C00", 0.17],
-          ]}
-          onComplete={handleTimerComplete}
-        >
-          {({ remainingTime, animatedColor }) => (
-            <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
-              {remainingTime}
-            </Animated.Text>
-          )}
-        </CountdownCircleTimer>
+      <View style={styles.topbar}>
+        <Text style={styles.subs}>{currentQuestionIndex + 1}/{totalQuestion}</Text>
+        <View style={styles.timer}>
+          <CountdownCircleTimer
+            size={70}
+            isPlaying={isPlaying}
+            duration={10}
+            colors={[
+              ["#00FF00", 0.83],
+              ["#FF8C00", 0.17],
+            ]}
+            onComplete={handleTimerComplete}
+          >
+            {({ remainingTime, animatedColor }) => (
+              <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>
+                {remainingTime}
+              </Animated.Text>
+            )}
+          </CountdownCircleTimer>
+        </View>
       </View>
+
       <View style={styles.new_background}>
         <Text style={GlobalStyles.title}>Take a Picture of</Text>
         <Text style={styles.subs}>
@@ -156,6 +160,14 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 70,
     marginTop: 20,
+  },
+  topbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 50,
+    paddingLeft: 10,
+    paddingBottom: 20
   },
   buttonText: {
     fontSize: 17,
