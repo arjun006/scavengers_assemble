@@ -5,16 +5,12 @@ export default (limit) => {
     let count = 0;
 
     while (count < limit) {
-        let randomIndex = Math.floor(Math.random() * objects.length);
-
-        while (result[randomIndex] !== "undefined")
-            randomIndex = Math.floor(Math.random() * objects.length);
 
         result[count] = {
             object: objects[randomIndex],
-            submission: 0,
-            completed: false
+            submission: 0
         };
+
         count++;
     }
 
