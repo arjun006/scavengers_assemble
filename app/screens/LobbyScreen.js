@@ -5,12 +5,19 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
 
-export default LobbyScreen = () => {
+export default LobbyScreen = ({ route, navigation }) => {
+
+    /* 2. Get the param */
+    const { lobbyId } = route.params;
+
+    console.log('Lobby ID: ' + lobbyId);
+
     const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
+
     return (
         <View style={GlobalStyles.background}>
             <Text style={GlobalStyles.title}>SCAVENGER CODE</Text>
-            <Text style={GlobalStyles.subtitle}>89377</Text>
+            <Text style={GlobalStyles.subtitle}>{lobbyId}</Text>
 
             <View style={LobbyStyles.playerContainer}>
                 {
