@@ -19,18 +19,8 @@ export default function LeaderBoardScreen({ route, navigation }) {
     //Get player score
     let dbRef = db.ref();
 
-
-    db.ref(`${lobbyId}/score/${id}/`).set({
-      name,
-      score
-    });
-
-    setTimeout(() => {
-
-    }, 1000);
-
     //Get Data
-    dbRef.child(`/${lobbyId}/score/`).get().then((snapshot) => {
+    dbRef.child(`/${lobbyId}/score`).get().then((snapshot) => {
 
       let scores = [];
 
@@ -39,7 +29,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
 
         for (let userId in players) {
           const { name, score } = players[userId];
-          scores.push([name, score]);
+          scores.push([name, 0]);
         }
 
         scores.sort(function (a, b) { return b[1] - a[1]; });
