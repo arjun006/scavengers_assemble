@@ -13,18 +13,16 @@ import callGoogleVIsionApi from "../googleVisionApi/callGoogleVIsionApi";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Camera } from "expo-camera";
-import { Permissions } from "expo-permissions";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
 export default function QuestionScreen({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [correct, setCorrect] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [picture, setPicture] = useState(null);
-  const [answer, setAnswer] = useState(null);
-  const [complete, setComplete] = useState(false);
+  const [hasPermission, setHasPermission] = useState(null); //Permission State for Camera usage
+  const [type, setType] = useState(Camera.Constants.Type.back); //Camera State front and back camera
+  const [correct, setCorrect] = useState(false); //Turn Camera on and off
+  const [isPlaying, setIsPlaying] = useState(true); //Countdown State playing
+  const [answer, setAnswer] = useState(null); //Checkmark/Cross on off
+  const [complete, setComplete] = useState(false); //Coundown finish state
   const cam = useRef();
 
   const takePicture = async () => {
@@ -36,6 +34,9 @@ export default function QuestionScreen({ navigation }) {
         callGoogleVIsionApi(source);
       }
     }
+  };
+  const goToLeaderboard = () => {
+    navigation.navigate("LeaderBoardScreen");
   };
 
   useEffect(() => {
@@ -51,6 +52,9 @@ export default function QuestionScreen({ navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  if (complete) {
+    goToLeaderboard();
+  }
   return (
     <View style={styles.background}>
       <View style={styles.timer}>
@@ -62,7 +66,7 @@ export default function QuestionScreen({ navigation }) {
             ["#00FF00", 0.83],
             ["#FF8C00", 0.17],
           ]}
-          onComplete={()=>setComplete(true)}
+          onComplete={() => setComplete(true)}
         >
           {({ remainingTime, animatedColor }) => (
             <Animated.Text style={{ color: animatedColor, fontSize: 30 }}>

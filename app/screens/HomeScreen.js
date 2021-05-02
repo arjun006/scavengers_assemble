@@ -10,63 +10,57 @@ import {
 import * as Permissions from "expo-permissions";
 import colours from "../config/colours";
 import GlobalStyles from "../config/GlobalStyles";
-import QuestionGenerator from './../QuestionGenerator/QuestionGenerator';
+import QuestionGenerator from "./../QuestionGenerator/QuestionGenerator";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as firebase from "firebase";
+import { Camera } from "expo-camera";
 
 export default function HomeScreen({ navigation }) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [code, setCode] = useState(0);
   const db = firebase.database();
 
   const onEnterPress = () => {
-
     if (name && code > 0) {
       console.log(code);
       const dbRef = db.ref();
 
       //If lobby exist
-      dbRef.child(`${code}/gameStarted`).get().then((snapshot) => {
-        if (snapshot.exists() && !snapshot.val()) {
-          const user = db.ref(`${code}/score`).push({
-            name,
-            score: 0
-          });
-          navigation.navigate('Waiting',
-            {
+      dbRef
+        .child(`${code}/gameStarted`)
+        .get()
+        .then((snapshot) => {
+          if (snapshot.exists() && !snapshot.val()) {
+            const user = db.ref(`${code}/score`).push({
+              name,
+              score: 0,
+            });
+            navigation.navigate("Waiting", {
               lobbyId: code,
               name,
-              id: user.key
+              id: user.key,
             });
-        } else {
+          } else {
+            showErrorMessage();
+          }
+        })
+        .catch((error) => {
           showErrorMessage();
-
-        }
-      }).catch((error) => {
-        showErrorMessage();
-      });
-    }
-    else {
+        });
+    } else {
       showErrorMessage();
     }
-
   };
   const showErrorMessage = () => {
-    Alert.alert(
-      "Error",
-      "Invalid Lobby Code or Game is in-progress",
-      [
-        { text: "OK" }
-      ]
-    );
-
+    Alert.alert("Error", "Invalid Lobby Code or Game is in-progress", [
+      { text: "OK" },
+    ]);
   };
   const onHostPress = () => {
     const lobbyId = generateLobby();
 
-    navigation.navigate('Lobby', {
+    navigation.navigate("Lobby", {
       lobbyId,
-      isHost: true
     });
   };
 
@@ -79,33 +73,30 @@ export default function HomeScreen({ navigation }) {
 
     db.ref(`${lobbyId}/`).set({
       gameStarted: false,
-      score: {
-
-      },
+      score: {},
       currentQuestion: 0,
       totalQuestion: 5,
-      Question: randomGeneratedQuestion
+      Question: randomGeneratedQuestion,
     });
 
     return lobbyId;
   };
 
+  const [hasPermission, setHasPermission] = useState(null);
 
-  // const [hasPermission, setHasPermission] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await Camera.requestPermissionsAsync();
-  //     setHasPermission(status === "granted");
-  //   })();
-  // }, []);
-
-  // if (hasPermission === null) {
-  //   return <View />;
-  // }
-  // if (hasPermission === false) {
-  //   return <Text>No access to camera</Text>;
-  // }
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
   return (
     <>
       <View
@@ -115,9 +106,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.logoContainer}>
           <Image source={require("../images/Title.png")} />
         </View>
-        <View
-          style={styles.inputContainer}
-        >
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
             placeholder="     Display Name     "
@@ -126,9 +115,7 @@ export default function HomeScreen({ navigation }) {
             }}
           />
         </View>
-        <View
-          style={styles.inputContainer}
-        >
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
             placeholder="   Scavenger Code   "
@@ -140,22 +127,22 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <TouchableOpacity
-          activeOpacity={.9}
+          activeOpacity={0.9}
           style={styles.roomButton}
-          onPress={() => onEnterPress()}>
+          onPress={() => onEnterPress()}
+        >
           <Text style={styles.buttonText}>Enter Room</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Click to host a game.</Text>
         <TouchableOpacity
-          activeOpacity={.9}
+          activeOpacity={0.9}
           style={styles.hostButton}
-          onPress={() => onHostPress()}>
+          onPress={() => onHostPress()}
+        >
           <Text style={styles.buttonText}>Host Game</Text>
         </TouchableOpacity>
-
       </ImageBackground>
-
     </>
   );
 }
@@ -175,10 +162,10 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 15,
     paddingHorizontal: 70,
-    marginTop: 20
+    marginTop: 20,
   },
   textInput: {
-    fontSize: 20
+    fontSize: 20,
   },
   roomButton: {
     backgroundColor: colours.black,
@@ -215,10 +202,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
-  }
+    elevation: 5,
+  },
 });
