@@ -74,7 +74,7 @@ export default function HostQuestionScreen({ route, navigation }) {
                 <CountdownCircleTimer
                     size={70}
                     isPlaying={isPlaying}
-                    duration={20}
+                    duration={10}
                     colors={[
                         ["#00FF00", 0.83],
                         ["#FF8C00", 0.17],
