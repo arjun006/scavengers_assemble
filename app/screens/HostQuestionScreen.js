@@ -14,6 +14,8 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 export default function HostQuestionScreen() {
     const [isPlaying] = useState(true);
+    const obj = "Towel";
+    const count = 3;
     return (
         <View style={styles.background}>
             <View style={styles.timer}>
@@ -36,9 +38,9 @@ export default function HostQuestionScreen() {
             </View>
 
             <Text style={styles.title}>Scavenger Object</Text>
-            <Text style={styles.objectName}>Towel</Text>
+            <Text style={styles.objectName}>{obj}</Text>
             <Text style={styles.tSubmissions}>Total Submissions</Text>
-            <Text style={styles.count}>3</Text>
+            <Text style={styles.count}>{count}</Text>
         </View>
     );
 }
