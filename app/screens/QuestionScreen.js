@@ -79,12 +79,14 @@ export default function QuestionScreen({ route, navigation }) {
 
   };
 
-  const handleTimerComplete = () => {
-
+  useEffect(() => {
     db.ref(`${lobbyId}/score/${id}`).set({
       name,
       score: currentUserScore
     });
+  }, [currentUserScore]);
+
+  const handleTimerComplete = () => {
 
     //Navigate to leaderboard
     navigation.push("LeaderBoardScreen", {
