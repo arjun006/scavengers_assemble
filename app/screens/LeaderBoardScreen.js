@@ -22,23 +22,18 @@ export default function LeaderBoardScreen({ route, navigation }) {
     //Get Data
     dbRef.child(`/${lobbyId}/score`).get().then((snapshot) => {
 
-      let unorderedScore = {};
-      let orderedScore = [];
+      let scores = [];
 
       if (snapshot.exists()) {
         const players = snapshot.val();
 
         for (userId in players) {
           const { name, score } = players[userId];
-          unorderedScore[score] = name;
+          unorderedScore.push([name, score]);
         }
 
-        let keys = Object.keys(unorderedScore);
-        keys.sort(function (a, b) { return b - a; });
+        scores.sort(function (a, b) { return b[1] - a[1]; });
 
-        keys.forEach(key => {
-          orderedScore.push([unorderedScore[key], key]);
-        });
 
         setScoreBoard(orderedScore);
       }
