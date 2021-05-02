@@ -9,17 +9,19 @@ import {
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import GlobalStyles from "./../config/GlobalStyles";
+// import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-
+import { Vision } from "@google-cloud/vision";
 import { Camera } from "expo-camera";
-import { Permissions } from "expo";
+import { Permissions } from "expo-permissions";
 
 export default function QuestionScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [correct, setCorrect] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [picture, setPicture] = useState(null);
   const cam = useRef();
 
   const takePicture = async () => {
@@ -79,6 +81,29 @@ export default function QuestionScreen() {
   };
 
 
+  //   const takePicture = async () => {
+  //     let pickerResult = await ImagePicker.launchCameraAsync({
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //     });
+
+  //     this._handleImagePicked(pickerResult);
+  //   };
+  //   const _handleImagePicked = async pickerResult => {
+  //     try {
+  //         this.setState({ uploading: true });
+
+  //         if (!pickerResult.cancelled) {
+  //             uploadUrl = await uploadImageAsync(pickerResult.uri);
+  //             this.setState({ image: uploadUrl });
+  //         }
+  //     } catch (e) {
+  //         console.log(e);
+  //         alert('Upload failed, sorry :(');
+  //     } finally {
+  //         this.setState({ uploading: false });
+  //     }
+  // };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -153,7 +178,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 17,
     color: colours.white,
   },
   cameraview: {
