@@ -22,6 +22,16 @@ export default function HostQuestionScreen({ route, navigation }) {
     const { lobbyId, isHost, currentQuestionIndex, playerCount } = route.params;
     const db = firebase.database();
 
+
+    const onQuestionComplete = () => {
+        navigation.push('LeaderBoardScreen', {
+            lobbyId,
+            isHost,
+            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
+            currentQuestionIndex: currentQuestionIndex + 1
+        });
+    };
+
     useEffect(() => {
         let dbRef = db.ref();
 
@@ -56,16 +66,6 @@ export default function HostQuestionScreen({ route, navigation }) {
         });
 
     }, []);
-
-
-    const onQuestionComplete = () => {
-        navigation.push('LeaderBoardScreen', {
-            lobbyId,
-            isHost,
-            isGameComplete: currentQuestionIndex + 1 >= totalQuestion,
-            currentQuestionIndex: currentQuestionIndex + 1
-        });
-    };
 
     return (
         <View style={styles.background}>
