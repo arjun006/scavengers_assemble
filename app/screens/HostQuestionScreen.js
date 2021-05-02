@@ -91,8 +91,8 @@ export default function HostQuestionScreen({ route, navigation }) {
 
             <Text style={styles.title}>Scavenger Object</Text>
             <Text style={styles.objectName}>{currentObject}</Text>
-            <Text style={styles.tSubmissions}>Total Submissions</Text>
-            <Text style={styles.count}>{totalSubmission}</Text>
+            {/* <Text style={styles.tSubmissions}>Total Submissions</Text>
+            <Text style={styles.count}>{totalSubmission}</Text> */}
         </View>
     );
 }
