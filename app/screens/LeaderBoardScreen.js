@@ -35,7 +35,7 @@ export default function LeaderBoardScreen({ route, navigation }) {
         scores.sort(function (a, b) { return b[1] - a[1]; });
 
 
-        setScoreBoard(orderedScore);
+        setScoreBoard(scores);
       }
     }).catch((error) => {
       console.error(error);
