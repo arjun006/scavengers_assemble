@@ -34,6 +34,7 @@ export default LobbyScreen = ({ route, navigation }) => {
 
                 console.log(players);
                 setPlayerList(players);
+
             }
         });
 
