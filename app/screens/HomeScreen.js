@@ -27,31 +27,33 @@ export default function HomeScreen({ navigation }) {
 
       dbRef.child(code).get().then((snapshot) => {
         if (snapshot.exists()) {
-          addUserToLobby(name, code);
+          const user = db.ref(`${code}/score`).push({
+            name,
+            score: 0
+          });
           navigation.navigate('Waiting',
             {
               lobbyId: code,
-              name
+              name,
+              id: user.key
             });
         } else {
           showErrorMessage();
 
         }
       }).catch((error) => {
-        console.log(error);
         showErrorMessage();
       });
-
+    }
+    else {
+      showErrorMessage();
     }
 
   };
 
   const addUserToLobby = (name, lobbyId) => {
     //If score node exist
-    db.ref(`${lobbyId}/score`).push({
-      name,
-      score: 0
-    });
+
 
   };
 
@@ -66,20 +68,11 @@ export default function HomeScreen({ navigation }) {
 
   };
   const onHostPress = () => {
-    // var database = firebase.database();
-    // console.log('working');
-
     const lobbyId = generateLobby();
 
     navigation.navigate('Lobby', {
       lobbyId
     });
-
-    // database.ref('1234/score/').set({
-    //   name: 'BOB',
-    //   score: 10
-    // });
-
   };
 
   const generateLobby = () => {
