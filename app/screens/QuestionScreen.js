@@ -12,7 +12,6 @@ import GlobalStyles from "./../config/GlobalStyles";
 // import {fs} from "fs";
 import colours from "../config/colours";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { Vision } from "@google-cloud/vision";
 import { Camera } from "expo-camera";
 import { Permissions } from "expo-permissions";
 
@@ -40,46 +39,39 @@ export default function QuestionScreen() {
   };
 
   const callGoogleVIsionApi = async (base64) => {
-    let googleVisionRes = await fetch("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk", {
-      method: 'POST',
-      body: JSON.stringify({
-        "requests": [
-          {
-            "image": {
-              "content": base64
+    let googleVisionRes = await fetch(
+      "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCzpJ_b6Y4UnvRbPa9D0vM1xcTLQJ-jOtk",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requests: [
+            {
+              image: {
+                content: base64,
+              },
+              features: [{ type: "LABEL_DETECTION", maxResults: 10 }],
             },
-            features: [
-              { type: "LABEL_DETECTION", maxResults: 10 },
-              { type: "LANDMARK_DETECTION", maxResults: 5 },
-              { type: "FACE_DETECTION", maxResults: 5 },
-              { type: "LOGO_DETECTION", maxResults: 5 },
-              { type: "TEXT_DETECTION", maxResults: 5 },
-              { type: "DOCUMENT_TEXT_DETECTION", maxResults: 5 },
-              { type: "SAFE_SEARCH_DETECTION", maxResults: 5 },
-              { type: "IMAGE_PROPERTIES", maxResults: 5 },
-              { type: "CROP_HINTS", maxResults: 5 },
-              { type: "WEB_DETECTION", maxResults: 5 }
-            ],
-          }
-        ]
-      })
-    });
+          ],
+        }),
+      }
+    );
 
-    await googleVisionRes.json()
-      .then(googleVisionRes => {
+    await googleVisionRes
+      .json()
+      .then((googleVisionRes) => {
         console.log(googleVisionRes);
         if (googleVisionRes) {
-          this.setState(
-            {
-              loading: false,
-              googleVisionDetetion: googleVisionRes.responses[0]
-            }
-          );
-          console.log('this.is response', this.state.googleVisionDetetion);
+          this.setState({
+            loading: false,
+            googleVisionDetetion: googleVisionRes.responses[0],
+          });
+          console.log("this.is response", this.state.googleVisionDetetion);
         }
-      }).catch((error) => { console.log(error); });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
 
   //   const takePicture = async () => {
   //     let pickerResult = await ImagePicker.launchCameraAsync({
