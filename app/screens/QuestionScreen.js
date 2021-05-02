@@ -65,12 +65,6 @@ export default function QuestionScreen({ route, navigation }) {
         end = Date.now();
         let newScore = currentUserScore + (Math.floor((end - start) / 1000) * 7);
         setCurrentUserScore(newScore);
-
-        db.ref(`${lobbyId}/score/${id}`).set({
-          name,
-          score: newScore
-        });
-
       }
     });
     setAnswer(checker);
@@ -86,7 +80,15 @@ export default function QuestionScreen({ route, navigation }) {
 
   };
 
+  useEffect(() => {
+    db.ref(`${lobbyId}/score/${id}`).set({
+      name,
+      score: currentUserScore
+    });
+  }, [currentUserScore]);
+
   const handleTimerComplete = () => {
+
     //Navigate to leaderboard
     navigation.push("LeaderBoardScreen", {
       currentQuestionIndex: currentQuestionIndex + 1,
