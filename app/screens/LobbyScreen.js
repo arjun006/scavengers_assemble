@@ -5,17 +5,6 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colours from '../config/colours';
 
-<<<<<<< HEAD
-export default LobbyScreen = ({route, navigation}) => {
-    const[gameCode, setGameCode] = useState(0);
-    const {name, code} = route.params;
-    const list = ['John', 'Mary', 'Sarah', 'Austin', 'Austin', 'Austin', 'Austin', 'Austin'];
-    list.push(JSON.stringify(name));
-    return (
-        <View style={GlobalStyles.background}>
-            <Text style={GlobalStyles.title}>SCAVENGER CODE</Text>
-            <Text style={GlobalStyles.subtitle}>{JSON.stringify(code)}</Text>
-=======
 export default LobbyScreen = ({ route, navigation }) => {
 
     /* 2. Get the param */
@@ -29,7 +18,6 @@ export default LobbyScreen = ({ route, navigation }) => {
         <View style={GlobalStyles.background}>
             <Text style={GlobalStyles.title}>SCAVENGER CODE</Text>
             <Text style={GlobalStyles.subtitle}>{lobbyId}</Text>
->>>>>>> 24b92f7047d467b1d0eb8271581cbf2ece28ed02
 
             <View style={LobbyStyles.playerContainer}>
                 {
